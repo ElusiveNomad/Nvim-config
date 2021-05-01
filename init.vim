@@ -29,8 +29,6 @@ endif
 set showmatch
 """copies to system clipboard
 set clipboard=unnamed
-"highlight in visual mode color change (NomadicSparkish lmao)
-"highlight Visual cterm=none ctermbg=darkgrey ctermfg=cyan  
 
 "enables python highlighting features
 let python_highlight_all = 1
@@ -53,6 +51,11 @@ inoremap jk <Esc>
 nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
 
 " example for term related remap nnoremap <leader>q :tab sp<CR> :term lazygit %<CR>
+
+"lazygit
+nnoremap <leader>g :FloatermNew lazygit <CR>
+"ncmpcpp
+nnoremap <leader>m :FloatermNew ncmpcpp<CR>
 
 "Pressing F9 in insert mode will run the python script in the current buffer
 inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
@@ -241,7 +244,6 @@ let g:which_key_map.t = {
       \ 'name' : '+terminal' ,
       \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
       \ 'm' : [':FloatermNew ncmpcpp'                               , 'music'],
-      \ 'g' : [':FloatermNew lazygit'                           , 'git'],
       \ 'p' : [':FloatermNew python3'                            , 'python3'],
       \ 'n' : [':FloatermNew node'                              , 'node'],
       \ 't' : [':FloatermToggle'                                , 'toggle'],
