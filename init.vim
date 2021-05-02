@@ -111,7 +111,7 @@ Plug 'nvim-lua/completion-nvim'
 """colorizes hex codes (hex codes will be in their respective color)
 Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
-Plug 'jiangmiao/auto-pairs' 
+"Plug 'jiangmiao/auto-pairs' 
 """nerdtree 
 Plug 'preservim/nerdtree'
 """Lualine statusline 
@@ -125,9 +125,37 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
 Plug 'joshdick/onedark.vim'          "onedark
 Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
-"Plug 'rafi/awesome-vim-colorschemes'
+"Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
+"""treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
+
+
+"""Treesitter
+"lua require'nvim-treesitter.configs'.setup {highlight = {enable = true}}
+lua << EOF
+require('nvim-treesitter.configs').setup({
+    highlight = {
+        enable = true
+        },
+    incremental_selection = {
+        enable = true,
+        keymaps= {
+            init_selection = "gnn",
+        },
+    },
+    indent = {
+        enable = true
+    },
+
+})
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
+"echo nvim_treesitter#statusline(90)
 """##########################
 
 "for lua∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏
@@ -177,7 +205,7 @@ lua require 'colorizer'.setup()
 colorscheme onedark 
 
 "lualine----------
-"
+"uncomment for lualine
 "lua << EOF
 "require('lualine').setup{
 "    
@@ -213,7 +241,9 @@ nnoremap <F1> :NERDTreeToggle<CR>
 let g:floaterm_keymap_next   = '<F3>'
 let g:floaterm_keymap_prev   = '<F4>'
 
+"removes floaterm title
 let g:floaterm_title = "" 
+
 hi FloatermBorder guibg=#282c34 guifg=#61afef
 "floaterm takes up 90% of the screen
 let g:floaterm_width = 0.9
@@ -243,7 +273,6 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 let g:which_key_map.t = {
       \ 'name' : '+terminal' ,
       \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
-      \ 'm' : [':FloatermNew ncmpcpp'                               , 'music'],
       \ 'p' : [':FloatermNew python3'                            , 'python3'],
       \ 'n' : [':FloatermNew node'                              , 'node'],
       \ 't' : [':FloatermToggle'                                , 'toggle'],
