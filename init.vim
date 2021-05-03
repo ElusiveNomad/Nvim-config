@@ -320,29 +320,53 @@ lua require 'colorizer'.setup()
 let g:battery#component_format = " %v"
 
 lua << EOF
+
+--color table
+local colors = {
+  bg       = '#202328',
+  fg       = '#bbc2cf',
+  yellow   = '#ECBE7B',
+  cyan     = '#008080',
+  darkblue = '#081633',
+  green    = '#98be65',
+  orange   = '#FF8800',
+  violet   = '#a9a1e1',
+  magenta  = '#c678dd',
+  blue     = '#51afef';
+  red      = '#ec5f67';
+}
+
 require('lualine').setup{
+
 options = {
-  theme = 'onedark',
-  section_separators = {'', ''},
-  component_separators = {'', ''},
-  disabled_filetypes = {},
-  icons_enabled = true,
+    theme = 'onedark',
+    section_separators = {'', ''},
+    component_separators = {'', ''},
+    disabled_filetypes = {},
+    icons_enabled = true,
 },
 sections = {
-  lualine_a = { {'mode', upper = true} },
-  lualine_b = { {'branch', icon = ''} },
-  lualine_c = { {'filename', file_status = true} },
-  lualine_x = { 'battery#component', 'filetype' },
-  lualine_y = { 'progress' },
-  lualine_z = { 'location'  },
+    lualine_a = { {'mode', upper = true} },
+    lualine_b = { {'branch', icon = ''} },
+    lualine_c = { 
+        {'diagnostics', 
+        sources = {'nvim_lsp'},
+        color_error = colors.red,
+        color_warn = colors.yellow,
+        color_info = colors.cyan,
+        },
+        {'filename', file_status = true} },
+    lualine_x = { 'battery#component', 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location'  },
 },
 inactive_sections = {
-  lualine_a = {  },
-  lualine_b = {  },
-  lualine_c = { 'filename' },
-  lualine_x = { 'location' },
-  lualine_y = {  },
-  lualine_z = {   }
+    lualine_a = {  },
+    lualine_b = {  },
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {  },
+    lualine_z = {   }
 },
 extensions = { 'fzf' }
 }
