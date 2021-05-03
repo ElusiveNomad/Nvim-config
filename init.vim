@@ -52,8 +52,6 @@ inoremap jk <Esc>
 nnoremap <leader>o o<Esc>k
 
 "Press F9 in normal mode to run python script into separate floaterm window 
-
-"
 "nnoremap <F9> :w<CR>:FloatermNew python3 %<CR>
 nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
 
@@ -70,8 +68,8 @@ nnoremap <leader>f :Files<CR>
 
 "Pressing F9 in insert mode will run the python script in the current buffer
 inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
-"makes a hotkey that copies everything (Ctrl \) in insert mode
-inoremap <C-\> <C-O>:%y<CR>
+"makes a hotkey that copies everything (F1) in insert mode
+inoremap <F1> <C-O>:%y<CR>
 "Pressing F12 will save and do :source load-vim-script % 
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
@@ -95,7 +93,8 @@ nnoremap <leader>l :ls<CR>
 """Misc
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
-
+"pressing leader and will 
+nnoremap <leader><leader> :echo strftime("%a %m/%d, %I:%M %p %Z")<CR>
 """for python
 set tabstop=4
 set softtabstop=4
@@ -107,7 +106,7 @@ set fileformat=unix
 let python_highlight_all = 1
 
 "for firenvim
-set guifont=Hack\ Nerd\ Font
+set guifont=Hack\ Nerd\ Font\ Mono:h15
 
 """##########################
 """ plugins go here---------------
@@ -346,7 +345,6 @@ local colors = {
   red      = '#ec5f67';
 }
 
-
 --lualine
 --+-------------------------------------------------+
 --| A | B | C                             X | Y | Z |
@@ -355,8 +353,8 @@ require('lualine').setup{
 
 options = {
     theme = 'onedark',
-    section_separators = {'', ''},
-    component_separators = {'', ''},
+    section_separators = {'', ''},
+    component_separators = {'|', '|'},
     disabled_filetypes = {},
     icons_enabled = true,
 },
@@ -374,7 +372,8 @@ sections = {
         {'filename', file_status = true} },
 
     lualine_x = { 'battery#component', 'filetype' },
-    lualine_y = { 'progress' },
+    lualine_y = { 'os.date("%a %m/%d, %I:%M %p")', 'progress'},
+
     lualine_z = { 'location'  },
 },
 extensions = { 'fzf', 'nerdtree' }
