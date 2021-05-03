@@ -75,11 +75,11 @@ tnoremap <Esc> <C-\><C-n>
 "Pressing <leader> and h will clear highlighting
 nnoremap <leader>h :noh<CR>
 
-"""buffers
+"""buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
-nnoremap <leader>1 :bp<CR>
+"nnoremap <leader>1 :bp<CR>
 "pressing <leader> and 2 will switch to the next buffer
-nnoremap <leader>2 :bn<CR>
+"nnoremap <leader>2 :bn<CR>
 "pressing <leader> and 0 will delete the current buffer
 
 nnoremap <leader>0 :bd<CR>
@@ -138,6 +138,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 """fzf
 Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
 Plug 'junegunn/fzf.vim'
+"""bufferline
+Plug 'akinsho/nvim-bufferline.lua'
+
 call plug#end()
 
 "custom colorschemes
@@ -332,6 +335,86 @@ let g:lualine = {
     \'extensions' : [ 'fzf' ],
     \}
 lua require("lualine").setup()
+
+
+"████████╗ █████╗ ██████╗ ██╗     ██╗███╗   ██╗███████╗
+"╚══██╔══╝██╔══██╗██╔══██╗██║     ██║████╗  ██║██╔════╝
+"   ██║   ███████║██████╔╝██║     ██║██╔██╗ ██║█████╗  
+"   ██║   ██╔══██║██╔══██╗██║     ██║██║╚██╗██║██╔══╝  
+"   ██║   ██║  ██║██████╔╝███████╗██║██║ ╚████║███████╗
+"   ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
+"nvim lua bufferline 
+" These commands will navigate through buffers in order regardless of which mode you are using
+" e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
+" leader [ next    leader ] prev
+nnoremap <silent><leader>[ :BufferLineCycleNext<CR>
+nnoremap <silent><leader>] :BufferLineCyclePrev<CR>
+
+" These commands will move the current buffer backwards or forwards in the bufferline
+nnoremap <silent><mymap> :BufferLineMoveNext<CR>
+nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+
+" These commands will sort buffers by directory, language, or a custom criteria
+nnoremap <silent><leader>be :BufferLineSortByExtension<CR>
+nnoremap <silent><leader>bd :BufferLineSortByDirectory<CR>
+nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
+
+
+lua require 'bufferline'.setup{}
+
+"lua << EOF
+"require'bufferline'.setup{
+"  options = {
+"    view = "multiwindow" | "default",
+"    numbers = "none" | "ordinal" | "buffer_id" | "both",
+"    number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
+"    mappings = true | false,
+"    buffer_close_icon= '',
+"    modified_icon = '●',
+"    close_icon = '',
+"    left_trunc_marker = '',
+"    right_trunc_marker = '',
+"    max_name_length = 18,
+"    max_prefix_length = 15, -- prefix used when a buffer is deduplicated
+"    tab_size = 18,
+"    diagnostics = "nvim_lsp"
+"    diagnostics_indicator = function(count, level, diagnostics_dict)
+"      return "("..count..")"
+"    end
+"    -- NOTE: this will be called a lot so don't do any heavy processing here
+"    custom_filter = function(buf_number)
+"      -- filter out filetypes you don't want to see
+"      if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
+"        return true
+"      end
+"      -- filter out by buffer name
+"      if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
+"        return true
+"      end
+"    a
+"      -- filter out based on arbitrary rules
+"      -- e.g. filter out vim wiki buffer from tabline in your work repo
+"      if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+"        return true
+"      end
+"    end,
+"    show_buffer_close_icons = true | false,
+"    show_close_icon = true | false,
+"    show_tab_indicators = true | false,
+"    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+"    -- can also be a table containing 2 custom separators
+"    -- [focused and unfocused]. eg: { '|', '|' }
+"    separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
+"    enforce_regular_tabs = false | true,
+"    always_show_bufferline = true | false,
+"    sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
+"      -- add custom logic
+"      return buffer_a.modified > buffer_b.modified
+"    end
+"  }
+"}
+"
+"EOF
 
 "███╗   ██╗███████╗██████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
 "████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
