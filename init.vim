@@ -8,6 +8,9 @@
 "minimalst
 "set laststatus=2
 
+"btw the 3d fonts:
+"slant, ANSI Shadow, straight
+
 "general settings----------
 "sets mapleader to <spacebar>
 let mapleader = ' '
@@ -56,6 +59,10 @@ nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
 nnoremap <leader>g :FloatermNew lazygit <CR>
 "ncmpcpp
 nnoremap <leader>m :FloatermNew ncmpcpp<CR>
+
+"fzf vim plugin
+"nnoremap <leader>f :FZF<CR>
+nnoremap <leader>f :Files<CR>
 
 "Pressing F9 in insert mode will run the python script in the current buffer
 inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
@@ -128,9 +135,73 @@ Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight
 "Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+"""fzf
+Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
+"custom colorschemes
+colorscheme onedark 
+
+"███████╗███████╗███████╗
+"██╔════╝╚══███╔╝██╔════╝
+"█████╗    ███╔╝ █████╗  
+"██╔══╝   ███╔╝  ██╔══╝  
+"██║     ███████╗██║     
+"╚═╝     ╚══════╝╚═╝     
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'Proc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+
+
+"████████╗██████╗ ███████╗███████╗███████╗██╗████████╗████████╗███████╗██████╗ 
+"╚══██╔══╝██╔══██╗██╔════╝██╔════╝██╔════╝██║╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
+"   ██║   ██████╔╝█████╗  █████╗  ███████╗██║   ██║      ██║   █████╗  ██████╔╝
+"   ██║   ██╔══██╗██╔══╝  ██╔══╝  ╚════██║██║   ██║      ██║   ██╔══╝  ██╔══██╗
+"   ██║   ██║  ██║███████╗███████╗███████║██║   ██║      ██║   ███████╗██║  ██║
+"   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
+"                                                                              
 
 """Treesitter
 "lua require'nvim-treesitter.configs'.setup {highlight = {enable = true}}
@@ -155,7 +226,6 @@ EOF
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
-"echo nvim_treesitter#statusline(90)
 """##########################
 
 "for lua∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏
@@ -168,7 +238,14 @@ set foldexpr=nvim_treesitter#foldexpr()
 "require'lspconfig'.bashls.setup{}
 "EOF
 
-"completion-nvim plugin---------------------
+
+"██╗     ███████╗██████╗ 
+"██║     ██╔════╝██╔══██╗
+"██║     ███████╗██████╔╝
+"██║     ╚════██║██╔═══╝ 
+"███████╗███████║██║     
+"╚══════╝╚══════╝╚═╝     
+"with completion-nvim plugin---------------------
 "autocompletion for python with pyright
 lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
 "autocomplete for bash (files)
@@ -180,6 +257,14 @@ lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
 " Use <Tab> and <S-Tab> to navigate through popup menu
 "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+"╔═══════════════════════════════╗
+" _ _  _  _ | _|_. _  _ |\ |  . _  
+"(_(_)||||_)|(-|_|(_)| )| \|\/|||| 
+"        |                         
+"╚═══════════════════════════════╝     
+"
 imap <tab> <Plug>(completion_smart_tab)
 imap <s-tab> <Plug>(completion_smart_s_tab)
 
@@ -201,9 +286,14 @@ set shortmess+=c
 "example:  #0000ff 
 lua require 'colorizer'.setup()
 
-"custom colorschemes
-colorscheme onedark 
 
+
+"██╗     ██╗   ██╗ █████╗ ██╗     ██╗███╗   ██╗███████╗
+"██║     ██║   ██║██╔══██╗██║     ██║████╗  ██║██╔════╝
+"██║     ██║   ██║███████║██║     ██║██╔██╗ ██║█████╗  
+"██║     ██║   ██║██╔══██║██║     ██║██║╚██╗██║██╔══╝  
+"███████╗╚██████╔╝██║  ██║███████╗██║██║ ╚████║███████╗
+"╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
 "lualine----------
 "uncomment for lualine
 
@@ -214,7 +304,7 @@ colorscheme onedark
 "
 "}
 "EOF
-"
+
 let g:lualine = {
     \'options' : {
     \  'theme' : 'onedark',
@@ -243,21 +333,12 @@ let g:lualine = {
     \}
 lua require("lualine").setup()
 
-
-"
-"airline----------
-"nord_minimal and raven and silver and desertink and base16_eighties and angr are possible ones
-" and violet and base16_snazzy 
-"let g:airline_theme='onedark'
-"lists open buffers
-"let g:airline#extensions#tabline#enabled=1
-"only show names of the buffers in tabs
-"let g:airline#extensions#tabline#fnamemode=':t'
-
-
-
-
-
+"███╗   ██╗███████╗██████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
+"████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
+"██╔██╗ ██║█████╗  ██████╔╝██║  ██║   ██║   ██████╔╝█████╗  █████╗  
+"██║╚██╗██║██╔══╝  ██╔══██╗██║  ██║   ██║   ██╔══██╗██╔══╝  ██╔══╝  
+"██║ ╚████║███████╗██║  ██║██████╔╝   ██║   ██║  ██║███████╗███████╗
+"╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 "nerdtree---------
 "NERDTree closes when a file is open
 let NERDTreeQuitOnOpen=1
@@ -266,6 +347,13 @@ let g:NERDTreeMinimalUI=1
 "NERDTree opens and closes with F2
 nnoremap <F1> :NERDTreeToggle<CR>
 
+
+"███████╗██╗      ██████╗  █████╗ ████████╗███████╗██████╗ ███╗   ███╗
+"██╔════╝██║     ██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗████╗ ████║
+"█████╗  ██║     ██║   ██║███████║   ██║   █████╗  ██████╔╝██╔████╔██║
+"██╔══╝  ██║     ██║   ██║██╔══██║   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║
+"██║     ███████╗╚██████╔╝██║  ██║   ██║   ███████╗██║  ██║██║ ╚═╝ ██║
+"╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
 "floaterm--------
 let g:floaterm_keymap_next   = '<F3>'
 let g:floaterm_keymap_prev   = '<F4>'
@@ -280,7 +368,15 @@ let g:floaterm_height = 0.9
 let g:floaterm_wintitle=0
 let g:floaterm_autoclose=1
 
-"witchkey--------
+
+"██╗    ██╗██╗  ██╗██╗ ██████╗██╗  ██╗██╗  ██╗███████╗██╗   ██╗
+"██║    ██║██║  ██║██║██╔════╝██║  ██║██║ ██╔╝██╔════╝╚██╗ ██╔╝
+"██║ █╗ ██║███████║██║██║     ███████║█████╔╝ █████╗   ╚████╔╝ 
+"██║███╗██║██╔══██║██║██║     ██╔══██║██╔═██╗ ██╔══╝    ╚██╔╝  
+"╚███╔███╔╝██║  ██║██║╚██████╗██║  ██║██║  ██╗███████╗   ██║   
+" ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
+"whichkey--------
+"
 nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 "no floating window
