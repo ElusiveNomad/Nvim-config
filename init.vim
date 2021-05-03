@@ -380,7 +380,7 @@ sections = {
         color_info = colors.cyan,
         },
         {'filename', file_status = true} ,
-        },
+    },
 
     lualine_x = { 'encoding', 'filetype' },
 
@@ -388,15 +388,22 @@ sections = {
     {'os.date("%a %m/%d")',
         color = {
             bg = colors.yellow,
-            fg ='#484848' 
-            }},
+            --fg ='#484848' 
+            fg = '#000000'
+            },
+        icon = ''
+    
+    },
 
 
     {'os.date("%I:%M %p")', 
         color = {
             bg = colors.yellow,
             fg = '#000000'
-            }}
+            },
+        icon = '| '
+
+            }
 
             },
             
