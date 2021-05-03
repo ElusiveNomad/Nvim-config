@@ -48,8 +48,12 @@ autocmd TermOpen * startinsert
 "----custom key-bindings----
 "maps jk to <Esc> in insert mode 
 inoremap jk <Esc>
-"makes a hotkey that runs python (Ctrl \)
+"maps leader o to the non insertmode versions of o
+nnoremap <leader>o o<Esc>k
+
 "Press F9 in normal mode to run python script into separate floaterm window 
+
+"
 "nnoremap <F9> :w<CR>:FloatermNew python3 %<CR>
 nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
 
@@ -80,9 +84,11 @@ nnoremap <leader>h :noh<CR>
 "nnoremap <leader>1 :bp<CR>
 "pressing <leader> and 2 will switch to the next buffer
 "nnoremap <leader>2 :bn<CR>
-"pressing <leader> and 0 will delete the current buffer
 
+"pressing <leader> and 0 will delete the current buffer
 nnoremap <leader>0 :bd<CR>
+"leader and minus will force close the current buffer
+nnoremap <leader>- :bd!
 "pressing <leader> and l will show all buffers
 nnoremap <leader>l :ls<CR>
 
@@ -314,8 +320,14 @@ lua require 'colorizer'.setup()
 "███████╗╚██████╔╝██║  ██║███████╗██║██║ ╚████║███████╗
 "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝
 "lualine----------
-"uncomment for lualine
-
+"
+"This outputs the current time in a good way idk how to implement tho
+"strftime("%I:%M %p")
+"ver with month and day down below
+"strftime("%m/%d, %I:%M %p")
+"+-------------------------------------------------+
+"| A | B | C                             X | Y | Z |
+"+-------------------------------------------------+
 "for battery component of the statusline
 let g:battery#component_format = " %v"
 
@@ -323,8 +335,6 @@ lua << EOF
 
 --color table
 local colors = {
-  bg       = '#202328',
-  fg       = '#bbc2cf',
   yellow   = '#ECBE7B',
   cyan     = '#008080',
   darkblue = '#081633',
@@ -336,7 +346,11 @@ local colors = {
   red      = '#ec5f67';
 }
 
+
 --lualine
+--+-------------------------------------------------+
+--| A | B | C                             X | Y | Z |
+--+-------------------------------------------------+
 require('lualine').setup{
 
 options = {
@@ -348,7 +362,8 @@ options = {
 },
 sections = {
     lualine_a = { {'mode', upper = true} },
-    lualine_b = { {'branch', icon = ''} },
+    lualine_b = { {'branch', icon = ''}},
+
     lualine_c = { 
         {'diagnostics', 
         sources = {'nvim_lsp'},
@@ -357,19 +372,12 @@ sections = {
         color_info = colors.cyan,
         },
         {'filename', file_status = true} },
+
     lualine_x = { 'battery#component', 'filetype' },
     lualine_y = { 'progress' },
     lualine_z = { 'location'  },
 },
-inactive_sections = {
-    lualine_a = {  },
-    lualine_b = {  },
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = {  },
-    lualine_z = {   }
-},
-extensions = { 'fzf' }
+extensions = { 'fzf', 'nerdtree' }
 }
 
 EOF
