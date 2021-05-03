@@ -334,15 +334,15 @@ lua << EOF
 
 --color table
 local colors = {
-  yellow   = '#ECBE7B',
+  yellow   = '#e5c07b',
   cyan     = '#008080',
   darkblue = '#081633',
   green    = '#98be65',
   orange   = '#FF8800',
   violet   = '#a9a1e1',
   magenta  = '#c678dd',
-  blue     = '#51afef';
-  red      = '#ec5f67';
+  blue     = '#61afef';
+  red      = '#e06c75';
 }
 
 --lualine
@@ -359,8 +359,13 @@ options = {
     icons_enabled = true,
 },
 sections = {
-    lualine_a = { {'mode', upper = true} },
-    lualine_b = { {'branch', icon = ''}},
+    lualine_a = { 
+    {'mode', upper = true},
+    {'battery#component', color = {bg = '#00000', fg = colors.green}}
+    },
+    lualine_b = { 
+        {'branch', icon = ''},
+        },
 
     lualine_c = { 
         {'diagnostics', 
@@ -369,12 +374,26 @@ sections = {
         color_warn = colors.yellow,
         color_info = colors.cyan,
         },
-        {'filename', file_status = true} },
+        {'filename', file_status = true} ,
+        },
 
-    lualine_x = { 'battery#component', 'filetype' },
-    lualine_y = { 'os.date("%a %m/%d, %I:%M %p")', 'progress'},
+    lualine_x = { 'encoding', 'filetype' },
 
-    lualine_z = { 'location'  },
+    lualine_y = { 
+
+
+
+
+    {'os.date("%a %m/%d, %I:%M %p")', 
+        color = {
+            bg = colors.yellow,
+            fg = '#000000'
+            }
+            }
+            },
+            
+    lualine_z = {{'progress'} , {'location', icon = ''}},
+    
 },
 extensions = { 'fzf', 'nerdtree' }
 }
