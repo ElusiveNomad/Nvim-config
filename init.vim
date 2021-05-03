@@ -140,11 +140,27 @@ Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
 Plug 'junegunn/fzf.vim'
 """bufferline
 Plug 'akinsho/nvim-bufferline.lua'
+"battery component for statuslines or whatever
+Plug 'lambdalisue/battery.vim'
 
 call plug#end()
 
 "custom colorschemes
 colorscheme onedark 
+
+"better battery icons
+"function! Battery_icon() 
+"  let l:battery_icon = {
+"    \ 5: " ",
+"    \ 4: " ",
+"    \ 3: " ",
+"    \ 2: " ",
+"    \ 1: " "}
+"    
+"  let l:backend = battery#backend()
+"  let l:nf = float2nr(round(backend.value / 20.0))
+"  return printf('%s', get(battery_icon, nf))
+"endfunction
 
 "███████╗███████╗███████╗
 "██╔════╝╚══███╔╝██╔════╝
@@ -300,41 +316,67 @@ lua require 'colorizer'.setup()
 "lualine----------
 "uncomment for lualine
 
-"lua << EOF
-"require('lualine').setup{
-"    
-"    options = {theme = 'onedark'}
-"
-"}
-"EOF
+"for battery component of the statusline
+let g:battery#component_format = " %v"
 
-let g:lualine = {
-    \'options' : {
-    \  'theme' : 'onedark',
-    \  'section_separators' : ['', ''],
-    \  'component_separators' : ['', ''],
-    \  'disabled_filetypes' : [],
-    \  'icons_enabled' : v:true,
-    \},
-    \'sections' : {
-    \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
-    \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
-    \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
-    \  'lualine_x' : [ 'encoding', 'fileformat', 'filetype' ],
-    \  'lualine_y' : [ 'progress' ],
-    \  'lualine_z' : [ 'location'  ],
-    \},
-    \'inactive_sections' : {
-    \  'lualine_a' : [  ],
-    \  'lualine_b' : [  ],
-    \  'lualine_c' : [ 'filename' ],
-    \  'lualine_x' : [ 'location' ],
-    \  'lualine_y' : [  ],
-    \  'lualine_z' : [  ],
-    \},
-    \'extensions' : [ 'fzf' ],
-    \}
-lua require("lualine").setup()
+lua << EOF
+require('lualine').setup{
+options = {
+  theme = 'onedark',
+  section_separators = {'', ''},
+  component_separators = {'', ''},
+  disabled_filetypes = {},
+  icons_enabled = true,
+},
+sections = {
+  lualine_a = { {'mode', upper = true} },
+  lualine_b = { {'branch', icon = ''} },
+  lualine_c = { {'filename', file_status = true} },
+  lualine_x = { 'battery#component', 'filetype' },
+  lualine_y = { 'progress' },
+  lualine_z = { 'location'  },
+},
+inactive_sections = {
+  lualine_a = {  },
+  lualine_b = {  },
+  lualine_c = { 'filename' },
+  lualine_x = { 'location' },
+  lualine_y = {  },
+  lualine_z = {   }
+},
+extensions = { 'fzf' }
+}
+
+EOF
+
+"let g:lualine = {
+"    \'options' : {
+"    \  'theme' : 'onedark',
+"    \  'section_separators' : ['', ''],
+"    \  'component_separators' : ['', ''],
+"    \  'disabled_filetypes' : [],
+"    \  'icons_enabled' : v:true,
+"    \},
+"    \'sections' : {
+"    \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
+"    \  'lualine_b' : [ ['branch', {'icon': '',}, ], ],
+"    \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
+"    \  'lualine_x' : [ 'battery#component','filetype' ],
+"    \  'lualine_y' : [ 'progress' ],
+"    \  'lualine_z' : [ 'location'  ],
+"    \},
+"    \'inactive_sections' : {
+"    \  'lualine_a' : [  ],
+"    \  'lualine_b' : [  ],
+"    \  'lualine_c' : [ 'filename' ],
+"    \  'lualine_x' : [ 'location' ],
+"    \  'lualine_y' : [  ],
+"    \  'lualine_z' : [  ],
+"    \},
+"    \'extensions' : [ 'fzf' ],
+"    \}
+
+"lua require("lualine").setup()
 
 
 "████████╗ █████╗ ██████╗ ██╗     ██╗███╗   ██╗███████╗
