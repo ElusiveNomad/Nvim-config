@@ -364,7 +364,7 @@ sections = {
     {'battery#component', color = {bg = '#00000', fg = colors.green}}
     },
     lualine_b = { 
-        {'branch', icon = ''},
+        {'branch', icon = '', color = {fg = colors.violet}},
         },
 
     lualine_c = { 
@@ -427,7 +427,7 @@ require"bufferline".setup{
         options = {
             view = "default",
             numbers = "ordinal",
-            number_style = "superscript", -- buffer_id at index 1, ordinal at index 2
+            number_style = "subscript", -- buffer_id at index 1, ordinal at index 2
             mappings = true,  --leader 1 through 9 can be used to navigate tabs
             buffer_close_icon= "",
             modified_icon = "●",
@@ -455,7 +455,6 @@ require"bufferline".setup{
     }
 EOF
 
-"lua require 'bufferline'.setup{}
 
 "███╗   ██╗███████╗██████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
 "████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
