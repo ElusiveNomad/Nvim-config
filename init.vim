@@ -247,20 +247,14 @@ require('nvim-treesitter.configs').setup({
 })
 EOF
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+"linefolding
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
 
-"""##########################
 
-"for lua∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏
 
-"#format is:
-"require'lspconfig'.<server>.setup{<config>}
-"#example: 
-"lua << EOF
-"require'lspconfig'.pyright.setup{}
-"require'lspconfig'.bashls.setup{}
-"EOF
+
+
 
 
 "██╗     ███████╗██████╗ 
@@ -269,6 +263,12 @@ set foldexpr=nvim_treesitter#foldexpr()
 "██║     ╚════██║██╔═══╝ 
 "███████╗███████║██║     
 "╚══════╝╚══════╝╚═╝     
+
+"#format is:
+"lua require'lspconfig'.<server>.setup{<config>}
+"#example: 
+"lua require'lspconfig'.pyright.setup{}
+
 "with completion-nvim plugin---------------------
 "autocompletion for python with pyright
 lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
@@ -298,14 +298,10 @@ set completeopt-=preview
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-""" getting settings from other files
-"""≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈
-"source ~/.config/nvim/plug-config/lsp-config.vim
-"luafile ~/.config/nvim/lua/plugins/compe-config.lua
-"""≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈
-"end of lua stuff∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏∏
 
-
+"
+"##########COLORIZER##########
+"
 "colorizer for displaying color as a highlight 
 "example:  #0000ff 
 lua require 'colorizer'.setup()
@@ -334,15 +330,20 @@ lua << EOF
 
 --color table
 local colors = {
-  yellow   = '#e5c07b',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#98be65',
-  orange   = '#FF8800',
-  violet   = '#a9a1e1',
-  magenta  = '#c678dd',
-  blue     = '#61afef';
-  red      = '#e06c75';
+
+        
+    purple  = '#c07be5',
+    grey   = '#5c6370',
+    yellow   = '#e5c07b',
+    cyan     = '#008080',
+    darkblue = '#081633',
+    green    = '#98be65',
+    orange   = '#FF8800',
+    violet   = '#a9a1e1',
+    magenta  = '#c678dd',
+    blue     = '#61afef';
+    red      = '#e06c75';
+
 }
 
 --lualine
@@ -361,7 +362,11 @@ options = {
 sections = {
     lualine_a = { 
     {'mode', upper = true},
-    {'battery#component', color = {bg = '#00000', fg = colors.green}}
+    {'battery#component', 
+    --color = {bg = '#00000', fg = colors.green}
+    }
+
+
     },
     lualine_b = { 
         {'branch', icon = '', color = {fg = colors.violet}},
@@ -380,16 +385,19 @@ sections = {
     lualine_x = { 'encoding', 'filetype' },
 
     lualine_y = { 
+    {'os.date("%a %m/%d")',
+        color = {
+            bg = colors.yellow,
+            fg ='#484848' 
+            }},
 
 
-
-
-    {'os.date("%a %m/%d, %I:%M %p")', 
+    {'os.date("%I:%M %p")', 
         color = {
             bg = colors.yellow,
             fg = '#000000'
-            }
-            }
+            }}
+
             },
             
     lualine_z = {{'progress'} , {'location', icon = ''}},
