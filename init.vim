@@ -99,7 +99,10 @@ nnoremap <leader>s <esc>z=
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
+"pressing leader twice will toggle the line numbers
+nnoremap <silent> <leader><leader>n :call ToggleRelativeNumber()<CR>
 
+"""functions
 function! ToggleStatusBar()
     if &laststatus
         setlocal laststatus=0
@@ -113,6 +116,15 @@ function! ToggleTabBar()
         setlocal showtabline=0
     else
         setlocal showtabline=2
+    endif
+endfunction
+
+"toggles the numbers on the left not working
+function! ToggleRelativeNumber()
+    if &relativenumber
+        setlocal norelativenumber & nonumber
+    else
+        setlocal number relativenumber
     endif
 endfunction
 
