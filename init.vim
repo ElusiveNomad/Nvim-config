@@ -23,8 +23,16 @@ syntax enable
 set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
-set cursorline
 set hidden                    " Required to keep multiple buffers open
+"set cursorline
+"sets cursorline and cursor column only on the current window
+augroup Cursor
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+    autocmd WinLeave * setlocal nocursorline
+    autocmd WinLeave * setlocal nocursorcolumn
+augroup END
 
 "sets termguicolors (24bit in iTerm) if available
 if (has("termguicolors"))
@@ -364,8 +372,8 @@ lua << EOF
 local colors = {
 
         
-    purple  = '#c07be5',
-    grey   = '#5c6370',
+    purple   = '#c07be5',
+    grey     = '#5c6370',
     yellow   = '#e5c07b',
     cyan     = '#008080',
     darkblue = '#081633',
