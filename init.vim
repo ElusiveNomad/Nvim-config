@@ -103,12 +103,19 @@ nnoremap <leader>l :ls<CR>
 """Misc bindings
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
+
+"Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
 "pressing leader twice will toggle the line numbers
 nnoremap <silent> <leader><leader>n :call ToggleRelativeNumber()<CR>
+"pressing leader twice will toggle the cursor column
+nnoremap <silent> <leader><leader>cc :call ToggleCursorColumn()<CR>
+"pressing leader twice will toggle the cursor line
+nnoremap <silent> <leader><leader>cl :call ToggleCursorline()<CR>
+
 
 """functions
 function! ToggleStatusBar()
@@ -133,6 +140,23 @@ function! ToggleRelativeNumber()
         setlocal norelativenumber & nonumber
     else
         setlocal number relativenumber
+    endif
+endfunction
+
+"toggles the cursor column
+function! ToggleCursorColumn()
+    if &cursorcolumn
+        setlocal nocursorcolumn
+    else
+        setlocal cursorcolumn
+    endif
+endfunction
+
+function! ToggleCursorline()
+    if &cursorline
+        setlocal nocursorline
+    else
+        setlocal cursorline
     endif
 endfunction
 
