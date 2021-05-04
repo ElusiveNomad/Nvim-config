@@ -6,7 +6,9 @@
                                     
 "TESTING--------
 "minimalst
-"set laststatus=2
+"set both to 2 to show 
+"set laststatus=0
+"set showtabline =0
 
 "btw the 3d fonts:
 "slant, ANSI Shadow, straight
@@ -90,11 +92,28 @@ nnoremap <leader>- :bd!
 "pressing <leader> and l will show all buffers
 nnoremap <leader>l :ls<CR>
 
-"""Misc
+"""Misc bindings
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
-"pressing leader and will 
-nnoremap <leader><leader> :echo strftime("%a %m/%d, %I:%M %p %Z")<CR>
+"pressing leader and leader will toggle the status bar
+nnoremap <silent> <leader><leader> :call ToggleStatusBar()<CR>
+
+function! ToggleStatusBar()
+    if &laststatus
+        setlocal laststatus=0
+    else
+        setlocal laststatus=2
+    endif
+endfunction
+
+function! ToggleTabBar()
+    if &showtabline
+        setlocal showtabline=0
+    else
+        setlocal showtabline=2
+    endif
+endfunction
+
 """for python
 set tabstop=4
 set softtabstop=4
@@ -246,7 +265,6 @@ require('nvim-treesitter.configs').setup({
 
 })
 EOF
-
 "linefolding
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
@@ -452,13 +470,16 @@ require"bufferline".setup{
             max_name_length = 18,
             max_prefix_length = 15, -- prefix used when a buffer is deduplicated
             tab_size = 18,
-            diagnostics = "false",
+            diagnostics = "nvim-lsp",
             --diagnostics_indicator = function(count, level)
             --return "("..count..")"
             --end
+
+            --these are used to differentiate between buffers and tabs 
             show_buffer_close_icons = false,
             show_close_icon = false,
             show_tab_indicators = true,
+
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
             -- can also be a table containing 2 custom separators
             -- [focused and unfocused]. eg: { "|", "|" }
