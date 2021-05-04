@@ -96,7 +96,9 @@ nnoremap <leader>l :ls<CR>
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
 "pressing leader and leader will toggle the status bar
-nnoremap <silent> <leader><leader> :call ToggleStatusBar()<CR>
+nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR>
+"pressing leader twice will toggle the tab bar
+nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
 
 function! ToggleStatusBar()
     if &laststatus
@@ -412,7 +414,6 @@ sections = {
         icon = ''
     
     },
-
 
     {'os.date("%I:%M %p")', 
         color = {
