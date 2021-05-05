@@ -109,7 +109,7 @@ nnoremap <leader>s <esc>z=
 
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
-nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR>
+nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR> :echo<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
 "pressing leader twice will toggle the line numbers
