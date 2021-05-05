@@ -87,6 +87,9 @@ tnoremap <Esc> <C-\><C-n>
 "Pressing <leader> and h will clear highlighting
 nnoremap <leader>h :noh<CR>
 
+"""splits
+nnoremap <leader>w <C-w>w
+
 """buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
 "nnoremap <leader>1 :bp<CR>
@@ -95,7 +98,7 @@ nnoremap <leader>h :noh<CR>
 
 "pressing <leader> and 0 will delete the current buffer
 nnoremap <leader>0 :bd<CR>
-"leader and minus will force close the current buffer
+"leader and minus will force close the current buffer (no <CR> for safety)
 nnoremap <leader>- :bd!
 "pressing <leader> and l will show all buffers
 nnoremap <leader>l :ls<CR>
@@ -465,10 +468,9 @@ sections = {
             fg = '#000000'
             },
         icon = '| '
+            } --end of second os.date
 
-            }
-
-            },
+            }, --end of lualine_y 
             
     lualine_z = {{'progress'} , {'location', icon = ''}},
     
