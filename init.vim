@@ -10,6 +10,9 @@
 "set laststatus=0
 "set showtabline =0
 
+"this gives live feedback while searching with /
+set incsearch
+
 "btw the 3d fonts:
 "slant, ANSI Shadow, straight
 
@@ -24,6 +27,7 @@ set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
+
 "set cursorline
 "sets cursorline and cursor column only on the current window
 augroup Cursor
@@ -88,7 +92,10 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>h :noh<CR>
 
 """splits
+"navigate splits with leader w 
 nnoremap <leader>w <C-w>w
+
+
 
 """buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
@@ -109,6 +116,7 @@ nnoremap <leader>s <esc>z=
 
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
+"the echo clears out the lingering vanila statusline when switching
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR> :echo<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
@@ -204,7 +212,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
 Plug 'joshdick/onedark.vim'          "onedark
-Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
+"Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
 "Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -218,8 +226,8 @@ Plug 'lambdalisue/battery.vim'
 
 call plug#end()
 
-"custom colorschemes
-colorscheme onedark 
+"custom colorscheme
+colorscheme onedark
 
 "better battery icons
 "function! Battery_icon() 
@@ -403,7 +411,7 @@ local colors = {
     grey     = '#5c6370',
     yellow   = '#e5c07b',
     cyan     = '#008080',
-    darkblue = '#081633',
+    blue1    = '#6666ff',
     green    = '#98be65',
     orange   = '#FF8800',
     violet   = '#a9a1e1',
@@ -444,7 +452,7 @@ sections = {
         sources = {'nvim_lsp'},
         color_error = colors.red,
         color_warn = colors.yellow,
-        color_info = colors.cyan,
+        color_info = colors.blue1,
         },
         {'filename', file_status = true} ,
     },
