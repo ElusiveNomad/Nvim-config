@@ -118,7 +118,7 @@ nnoremap <leader>l :ls<CR>
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
 "pressing alt space will open this file
-"nnoremap <Tab><Space> :e $MYVIMRC<CR>
+nnoremap <Tab><Space> :e $MYVIMRC<CR>
 
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
