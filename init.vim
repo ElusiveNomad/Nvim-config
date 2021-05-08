@@ -94,8 +94,11 @@ nnoremap <leader>h :noh<CR>
 """splits
 "navigate splits with leader w 
 nnoremap <leader>w <C-w>w
-
-
+"arrow keys for rezising splits in their corresponding directions
+nnoremap <Up> <C-w>-
+nnoremap <Down> <C-w>+
+nnoremap <Left> <C-w><
+nnoremap <Right> <C-w>>
 
 """buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
@@ -113,6 +116,8 @@ nnoremap <leader>l :ls<CR>
 """Misc bindings
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
+"pressing alt space will open this file
+"nnoremap <Tab><Space> :e $MYVIMRC<CR>
 
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
@@ -228,6 +233,8 @@ call plug#end()
 
 "custom colorscheme
 colorscheme onedark
+"italics with onedark theme
+let g:onedark_terminal_italics = 1
 
 "better battery icons
 "function! Battery_icon() 
