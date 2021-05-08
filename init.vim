@@ -27,6 +27,7 @@ set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
+set mouse=a
 
 "set cursorline
 "sets cursorline and cursor column only on the current window
