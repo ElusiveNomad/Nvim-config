@@ -39,6 +39,7 @@ augroup Cursor
     autocmd WinLeave * setlocal nocursorcolumn
 augroup END
 
+
 "sets termguicolors (24bit in iTerm) if available
 if (has("termguicolors"))
     set termguicolors
@@ -59,6 +60,8 @@ autocmd BufEnter :se nowrap
 
 "automatically changes the mode to insert mode for new term windows
 autocmd TermOpen * startinsert
+autocmd TermOpen * setlocal norelativenumber & nonumber
+
 
 "----custom key-bindings----
 "maps jk to <Esc> in insert mode 
@@ -358,7 +361,7 @@ EOF
 
 "with completion-nvim plugin---------------------
 "autocompletion for python with pyright
-lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach,settings={python={analysis={typeChekcingMode="off"}}}}
 "autocomplete for bash (files)
 lua require'lspconfig'.bashls.setup{on_attach=require'completion'.on_attach}
 "autocomplete for .vim
