@@ -60,6 +60,7 @@ autocmd BufEnter :se nowrap
 
 "automatically changes the mode to insert mode for new term windows
 autocmd TermOpen * startinsert
+"removes line numbers for the terminal when a terminal is opened
 autocmd TermOpen * setlocal norelativenumber & nonumber
 
 
@@ -213,8 +214,6 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
 "Plug 'jiangmiao/auto-pairs' 
-"""nerdtree 
-Plug 'preservim/nerdtree'
 """Lualine statusline 
 Plug 'hoob3rt/lualine.nvim'
 "for icons in the lualine statusline
@@ -239,10 +238,12 @@ Plug 'lambdalisue/battery.vim'
 
 call plug#end()
 
+"italics with onedark theme (looks like it just affects comments)
+let g:onedark_terminal_italics = 1
+"removes the ~ at the end of buffers with the onedark colorscheme 
+let g:onedark_hide_endofbuffer = 1
 "custom colorscheme
 colorscheme onedark
-"italics with onedark theme
-let g:onedark_terminal_italics = 1
 
 "better battery icons
 "function! Battery_icon() 
@@ -498,7 +499,7 @@ sections = {
     lualine_z = {{'progress'} , {'location', icon = ''}},
     
 },
-extensions = { 'fzf', 'nerdtree' }
+extensions = { 'fzf' }
 }
 
 EOF
@@ -569,11 +570,11 @@ EOF
 "╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 "nerdtree---------
 "NERDTree closes when a file is open
-let NERDTreeQuitOnOpen=1
+"let NERDTreeQuitOnOpen=1
 "minimal UI
-let g:NERDTreeMinimalUI=1
+"let g:NERDTreeMinimalUI=1
 "NERDTree opens and closes with F2
-nnoremap <F1> :NERDTreeToggle<CR>
+"nnoremap <F1> :NERDTreeToggle<CR>
 
 
 "███████╗██╗      ██████╗  █████╗ ████████╗███████╗██████╗ ███╗   ███╗
