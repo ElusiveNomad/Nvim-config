@@ -4,7 +4,7 @@
 "  / /|  /  __/ /_/ / |/ / / / / / / /
 " /_/ |_/\___/\____/|___/_/_/ /_/ /_/ 
                                     
-"TESTING--------
+"TESTING---------
 "minimalst
 "set both to 2 to show 
 "set laststatus=0
@@ -95,6 +95,10 @@ nnoremap <leader>h :noh<CR>
 """splits
 "navigate splits with leader w 
 nnoremap <leader>w <C-w>w
+
+"changes the current buffer location
+nnoremap <leader>k <C-w>K
+
 "arrow keys for rezising splits in their corresponding directions
 nnoremap <Up> <C-w>-
 nnoremap <Down> <C-w>+
