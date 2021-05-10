@@ -5,7 +5,7 @@
 " /_/ |_/\___/\____/|___/_/_/ /_/ /_/ 
                                     
 "TESTING---------
-"minimalst
+"minimalist
 "set both to 2 to show 
 "set laststatus=0
 "set showtabline =0
@@ -88,7 +88,7 @@ nnoremap <leader>f :Files<CR>
 "Pressing F9 in insert mode will run the python script in the current buffer
 inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
 "makes a hotkey that copies everything (F1) in insert mode
-inoremap <F1> <C-O>:%y<CR>
+inoremap <S-F1> <C-O>:%y<CR>
 "Pressing F12 will save and do :source load-vim-script % 
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
@@ -103,11 +103,11 @@ nnoremap <leader>w <C-w>w
 "changes the current buffer location
 nnoremap <leader>k <C-w>K
 
-"arrow keys for rezising splits in their corresponding directions
-nnoremap <Up> <C-w>-
-nnoremap <Down> <C-w>+
-nnoremap <Left> <C-w><
-nnoremap <Right> <C-w>>
+"arrow keys for resizing splits in their corresponding directions
+nnoremap <A-Up> <C-w>-
+nnoremap <A-Down> <C-w>+
+nnoremap <A-Left> <C-w><
+nnoremap <A-Right> <C-w>>
 
 """buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
@@ -130,7 +130,7 @@ nnoremap <Tab><Space> :e $MYVIMRC<CR>
 
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
-"the echo clears out the lingering vanila statusline when switching
+"the echo clears out the lingering vanilla statusline when switching
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR> :echo<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
@@ -214,6 +214,8 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
 "Plug 'jiangmiao/auto-pairs' 
+"File tree
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 """Lualine statusline 
 Plug 'hoob3rt/lualine.nvim'
 "for icons in the lualine statusline
@@ -224,6 +226,10 @@ Plug 'voldikss/vim-floaterm'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
 Plug 'joshdick/onedark.vim'          "onedark
+Plug 'ishan9299/modus-theme-vim'         "a light and dark theme with treesitter support
+
+Plug 'RRethy/nvim-base16' "a collection of base16 colors
+
 "Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
 "Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
 """treesitter
@@ -237,6 +243,7 @@ Plug 'akinsho/nvim-bufferline.lua'
 Plug 'lambdalisue/battery.vim'
 
 call plug#end()
+"""##########################
 
 "italics with onedark theme (looks like it just affects comments)
 let g:onedark_terminal_italics = 1
@@ -244,6 +251,17 @@ let g:onedark_terminal_italics = 1
 let g:onedark_hide_endofbuffer = 1
 "custom colorscheme
 colorscheme onedark
+
+"lua << EOF
+"
+"--https://github.com/RRethy/nvim-base16
+"--colorschemes are also listed in 
+"local colorscheme = require('base16-colorscheme')
+"-- provide the name of a builtin colorscheme
+"colorscheme.setup('one-light')
+"
+"
+"EOF
 
 "better battery icons
 "function! Battery_icon() 
@@ -562,19 +580,22 @@ require"bufferline".setup{
     }
 EOF
 
-"███╗   ██╗███████╗██████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
-"████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
-"██╔██╗ ██║█████╗  ██████╔╝██║  ██║   ██║   ██████╔╝█████╗  █████╗  
-"██║╚██╗██║██╔══╝  ██╔══██╗██║  ██║   ██║   ██╔══██╗██╔══╝  ██╔══╝  
-"██║ ╚████║███████╗██║  ██║██████╔╝   ██║   ██║  ██║███████╗███████╗
-"╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
-"nerdtree---------
-"NERDTree closes when a file is open
-"let NERDTreeQuitOnOpen=1
-"minimal UI
-"let g:NERDTreeMinimalUI=1
-"NERDTree opens and closes with F2
-"nnoremap <F1> :NERDTreeToggle<CR>
+" ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
+"██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
+"██║     ███████║███████║██║  ██║   ██║   ██████╔╝█████╗  █████╗  
+"██║     ██╔══██║██╔══██║██║  ██║   ██║   ██╔══██╗██╔══╝  ██╔══╝  
+"╚██████╗██║  ██║██║  ██║██████╔╝   ██║   ██║  ██║███████╗███████╗
+" ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
+"chadtree                                                                 
+
+
+nnoremap <F1> <CMD>CHADopen<CR>
+
+
+
+
+
+
 
 
 "███████╗██╗      ██████╗  █████╗ ████████╗███████╗██████╗ ███╗   ███╗
