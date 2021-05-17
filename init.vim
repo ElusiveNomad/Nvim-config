@@ -9,7 +9,8 @@
 "set both to 2 to show 
 "set laststatus=0
 "set showtabline =0
-
+"temp btw
+nnoremap <leader>tv :FloatermNew mvim<CR>
 "this gives live feedback while searching with /
 set incsearch
 
@@ -28,6 +29,7 @@ set scrolloff=5
 set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
 set mouse=a
+set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
 "set cursorline
 "sets cursorline and cursor column only on the current window
@@ -61,7 +63,8 @@ autocmd BufEnter :se nowrap
 "automatically changes the mode to insert mode for new term windows
 autocmd TermOpen * startinsert
 "removes line numbers for the terminal when a terminal is opened
-autocmd TermOpen * setlocal norelativenumber & nonumber
+autocmd TermOpen * setlocal norelativenumber & nonumber 
+"& laststatus=0
 
 
 "----custom key-bindings----
@@ -94,7 +97,7 @@ nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
 tnoremap <Esc> <C-\><C-n>
 "Pressing <leader> and h will clear highlighting
-nnoremap <leader>h :noh<CR>
+nnoremap <leader>h :nohlsearch<CR>
 
 """splits
 "navigate splits with leader w 
@@ -116,18 +119,17 @@ nnoremap <A-Right> <C-w>>
 "nnoremap <leader>2 :bn<CR>
 
 "pressing <leader> and 0 will delete the current buffer
-nnoremap <leader>0 :bd<CR>
+nnoremap <leader>0 :bdelete<CR>
 "leader and minus will force close the current buffer (no <CR> for safety)
-nnoremap <leader>- :bd!
+nnoremap <leader>- :bdelete!
 "pressing <leader> and l will show all buffers
 nnoremap <leader>l :ls<CR>
 
 """Misc bindings
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
-"pressing alt space will open this file
+"pressing alt space will open this file in nvim 
 nnoremap <Tab><Space> :e $MYVIMRC<CR>
-
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
 "the echo clears out the lingering vanilla statusline when switching
@@ -141,6 +143,9 @@ nnoremap <silent> <leader><leader>cc :call ToggleCursorColumn()<CR>
 "pressing leader twice will toggle the cursor line
 nnoremap <silent> <leader><leader>cl :call ToggleCursorline()<CR>
 
+"""Commands
+"doing :HardcopyPdf will convert the current file to a pdf
+command! -range=% HardcopyPdf <line1>,<line2> hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo 'Created: %.pdf'
 
 """functions
 function! ToggleStatusBar()
@@ -229,6 +234,7 @@ Plug 'joshdick/onedark.vim'          "onedark
 Plug 'ishan9299/modus-theme-vim'         "a light and dark theme with treesitter support
 
 Plug 'RRethy/nvim-base16' "a collection of base16 colors
+Plug 'chriskempson/base16-vim'   "base 16 colors (no lua)
 
 "Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
 "Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
@@ -380,7 +386,7 @@ EOF
 
 "with completion-nvim plugin---------------------
 "autocompletion for python with pyright
-lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach,settings={python={analysis={typeChekcingMode="off"}}}}
+lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach, settings={python={analysis={typeChekcingMode="off"}}}}
 "autocomplete for bash (files)
 lua require'lspconfig'.bashls.setup{on_attach=require'completion'.on_attach}
 "autocomplete for .vim
@@ -588,14 +594,7 @@ EOF
 " ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 "chadtree                                                                 
 
-
 nnoremap <F1> <CMD>CHADopen<CR>
-
-
-
-
-
-
 
 
 "███████╗██╗      ██████╗  █████╗ ████████╗███████╗██████╗ ███╗   ███╗
