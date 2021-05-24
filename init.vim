@@ -14,6 +14,7 @@ nnoremap <leader>tv :FloatermNew mvim<CR>
 "this gives live feedback while searching with /
 set incsearch
 
+
 "btw the 3d fonts:
 "slant, ANSI Shadow, straight
 
@@ -28,7 +29,6 @@ set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
-set mouse=a
 set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
 "set cursorline
@@ -107,10 +107,10 @@ nnoremap <leader>w <C-w>w
 nnoremap <leader>k <C-w>K
 
 "arrow keys for resizing splits in their corresponding directions
-nnoremap <A-Up> <C-w>-
-nnoremap <A-Down> <C-w>+
-nnoremap <A-Left> <C-w><
-nnoremap <A-Right> <C-w>>
+nnoremap <S-Up> <C-w>-
+nnoremap <S-Down> <C-w>+
+nnoremap <S-Left> <C-w><
+nnoremap <S-Right> <C-w>>
 
 """buffers   (moved to bufferline) 
 "pressing <leader> and 1 will switch to previous buffer
@@ -208,7 +208,8 @@ set guifont=Hack\ Nerd\ Font\ Mono:h15
 call plug#begin('~/.vim/plugged')
 
 "which key (never forget keybindings with this)
-Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
+"Plug 'liuchengxu/vim-which-key'
 "Language Server Protocol or lsp for short
 Plug 'neovim/nvim-lspconfig'
 "autocomplete (using with lsp)
@@ -220,7 +221,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
 "Plug 'jiangmiao/auto-pairs' 
 "File tree
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'ms-jpq/chadtree', {'on':'CHADopen', 'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 """Lualine statusline 
 Plug 'hoob3rt/lualine.nvim'
 "for icons in the lualine statusline
@@ -231,13 +232,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
 Plug 'joshdick/onedark.vim'          "onedark
-Plug 'ishan9299/modus-theme-vim'         "a light and dark theme with treesitter support
-
-Plug 'RRethy/nvim-base16' "a collection of base16 colors
-Plug 'chriskempson/base16-vim'   "base 16 colors (no lua)
-
-"Plug 'sonph/onehalf', {'rtp': 'vim'} "onelight 
-"Plug 'christianchiarulli/nvcode-color-schemes.vim' "treesitter support
+"Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 """fzf
@@ -255,6 +250,7 @@ call plug#end()
 let g:onedark_terminal_italics = 1
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
+
 "custom colorscheme
 colorscheme onedark
 
@@ -624,35 +620,56 @@ let g:floaterm_autoclose=1
 "██║███╗██║██╔══██║██║██║     ██╔══██║██╔═██╗ ██╔══╝    ╚██╔╝  
 "╚███╔███╔╝██║  ██║██║╚██████╗██║  ██║██║  ██╗███████╗   ██║   
 " ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   
-"whichkey--------
+"whichkey (lua)--------
 "
-nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
-"no floating window
-let g:which_key_use_floating_win = 0
-" Create map to add keys to
-let g:which_key_map =  {}
-" Define a separator
-let g:which_key_sep = '→'
-" Change the colors if you want
-highlight default link WhichKey          Operator
-highlight default link WhichKeySeperator DiffAdded
-highlight default link WhichKeyGroup     Identifier
-highlight default link WhichKeyDesc      Function
-"" Hide status line
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-"which key config (with floaterm)
-let g:which_key_map.t = {
-      \ 'name' : '+terminal' ,
-      \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
-      \ 'p' : [':FloatermNew python3'                            , 'python3'],
-      \ 'n' : [':FloatermNew node'                              , 'node'],
-      \ 't' : [':FloatermToggle'                                , 'toggle'],
-      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
-      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
-      \ 'i' : [':FloatermNew speedtest-cli'                     , 'Internet test'],
-      \ }
-" Register which key map
-call which_key#register('<Space>', "g:which_key_map")
+
+lua << EOF
+
+local wk = require("which-key")
+
+--<leader>t ...
+wk.register({
+  t = {
+    name = "floaterm", -- optional group name
+    p = { ":FloatermNew python3<CR>", "python" }, 
+    y = { ":FloatermNew ytop<CR>", "ytop" }, 
+    i = { ":FloatermNew speedtest-cli<CR>", "Internet test" }, 
+    t = { ":FloatermNew <CR>", "Toggle" }, 
+    n = { ":FloatermNew ncdu<CR>", "Space" }, 
+  },
+}, { prefix = "<leader>" })
+
+EOF
+
+"whichkey (vimscript)--------
+"
+"nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
+"vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+""no floating window
+"let g:which_key_use_floating_win = 0
+"" Create map to add keys to
+"let g:which_key_map =  {}
+"" Define a separator
+"let g:which_key_sep = '→'
+"" Change the colors if you want
+"highlight default link WhichKey          Operator
+"highlight default link WhichKeySeperator DiffAdded
+"highlight default link WhichKeyGroup     Identifier
+"highlight default link WhichKeyDesc      Function
+""" Hide status line
+"autocmd! FileType which_key
+"autocmd  FileType which_key set laststatus=0 noshowmode noruler
+"  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+""which key config (with floaterm)
+"let g:which_key_map.t = {
+"      \ 'name' : '+terminal' ,
+"      \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
+"      \ 'p' : [':FloatermNew python3'                            , 'python3'],
+"      \ 'n' : [':FloatermNew node'                              , 'node'],
+"      \ 't' : [':FloatermToggle'                                , 'toggle'],
+"      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
+"      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
+"      \ 'i' : [':FloatermNew speedtest-cli'                     , 'Internet test'],
+"      \ }
+"" Register which key map
+"call which_key#register('<Space>', "g:which_key_map")
