@@ -140,7 +140,8 @@ nnoremap <leader>l :ls<CR>
 "pressing <leader> and s will open up autocorrect for the word under the cursor
 nnoremap <leader>s <esc>z=
 "pressing alt space will open this file in nvim 
-nnoremap <Tab><Space> :e $MYVIMRC<CR>
+"and switch the working directory for this file to .config/nvim
+nnoremap <Tab><Space> :new $MYVIMRC<CR> :lcd %:p:h<CR>
 "Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
 "the echo clears out the lingering vanilla statusline when switching
