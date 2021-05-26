@@ -54,6 +54,17 @@ set clipboard=unnamed
 "enables python highlighting features
 let python_highlight_all = 1
 
+"""for python
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set fileformat=unix
+
+"for firenvim
+set guifont=Hack\ Nerd\ Font\ Mono:h15
+
 "enables spellcheck on .txt and extensionless files
 autocmd BufEnter *.txt setlocal spell spelllang=en_us
 
@@ -142,6 +153,9 @@ nnoremap <silent> <leader><leader>n :call ToggleRelativeNumber()<CR>
 nnoremap <silent> <leader><leader>cc :call ToggleCursorColumn()<CR>
 "pressing leader twice will toggle the cursor line
 nnoremap <silent> <leader><leader>cl :call ToggleCursorline()<CR>
+"pressing leader twice and d will toggle between a light and dark colorscheme
+nnoremap <silent> <leader><leader>C :call ToggleColorscheme()<CR>
+
 
 """Commands
 "doing :HardcopyPdf will convert the current file to a pdf
@@ -190,18 +204,16 @@ function! ToggleCursorline()
     endif
 endfunction
 
-"""for python
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set fileformat=unix
-"enables python highlighting features
-let python_highlight_all = 1
-
-"for firenvim
-set guifont=Hack\ Nerd\ Font\ Mono:h15
+"relies on rakr/vim-one for detecting and changing to light colorscheme
+function! ToggleColorscheme()
+    if g:colors_name == "one"
+        colorscheme onedark
+        set background=dark
+    else
+        colorscheme one
+        set background=light
+    endif
+endfunction
 
 """##########################
 """ plugins go here---------------
@@ -232,6 +244,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
 Plug 'joshdick/onedark.vim'          "onedark
+Plug 'rakr/vim-one'                  "onedark with light theme
 "Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -627,49 +640,15 @@ lua << EOF
 
 local wk = require("which-key")
 
---<leader>t ...
+--this is the <leader>t ... group
 wk.register({
   t = {
     name = "floaterm", -- optional group name
-    p = { ":FloatermNew python3<CR>", "python" }, 
-    y = { ":FloatermNew ytop<CR>", "ytop" }, 
-    i = { ":FloatermNew speedtest-cli<CR>", "Internet test" }, 
-    t = { ":FloatermNew <CR>", "Toggle" }, 
-    n = { ":FloatermNew ncdu<CR>", "Space" }, 
+    p = { ":FloatermNew python3<CR>"                           ,"python3" }, 
+    y = { ":FloatermNew ytop<CR>"                              ,"ytop" }, 
+    i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
+    t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
+    n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
   },
 }, { prefix = "<leader>" })
 
-EOF
-
-"whichkey (vimscript)--------
-"
-"nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
-"vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
-""no floating window
-"let g:which_key_use_floating_win = 0
-"" Create map to add keys to
-"let g:which_key_map =  {}
-"" Define a separator
-"let g:which_key_sep = '→'
-"" Change the colors if you want
-"highlight default link WhichKey          Operator
-"highlight default link WhichKeySeperator DiffAdded
-"highlight default link WhichKeyGroup     Identifier
-"highlight default link WhichKeyDesc      Function
-""" Hide status line
-"autocmd! FileType which_key
-"autocmd  FileType which_key set laststatus=0 noshowmode noruler
-"  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-""which key config (with floaterm)
-"let g:which_key_map.t = {
-"      \ 'name' : '+terminal' ,
-"      \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
-"      \ 'p' : [':FloatermNew python3'                            , 'python3'],
-"      \ 'n' : [':FloatermNew node'                              , 'node'],
-"      \ 't' : [':FloatermToggle'                                , 'toggle'],
-"      \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
-"      \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
-"      \ 'i' : [':FloatermNew speedtest-cli'                     , 'Internet test'],
-"      \ }
-"" Register which key map
-"call which_key#register('<Space>', "g:which_key_map")
