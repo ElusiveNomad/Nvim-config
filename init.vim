@@ -257,6 +257,12 @@ Plug 'akinsho/nvim-bufferline.lua'
 "battery component for statuslines or whatever
 Plug 'lambdalisue/battery.vim'
 
+"""Git
+":DiffviewOpen
+Plug 'sindrets/diffview.nvim'
+"git signs in gutter "]c" (next) and "[c" (previous) to navigate hunks
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 """##########################
 
