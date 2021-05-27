@@ -57,6 +57,8 @@ augroup terminal
     "removes line numbers for the terminal when a terminal is opened
     autocmd TermOpen * setlocal norelativenumber & nonumber 
     "& laststatus=0
+    "autocloses the terminal without need of pressing enter
+    autocmd TermClose * call feedkeys("i")
 augroup END
 
 augroup Templates
