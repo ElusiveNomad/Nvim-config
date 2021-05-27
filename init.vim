@@ -120,8 +120,8 @@ inoremap <S-F1> <C-O>:%y<CR>
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
 tnoremap <Esc> <C-\><C-n>
-"Pressing <leader> and h will clear highlighting
-nnoremap <leader>h :nohlsearch<CR>
+"Pressing <leader> and hh will clear highlighting
+nnoremap <leader>hh :nohlsearch<CR>
 
 """splits
 "navigate splits with leader w 
@@ -273,7 +273,7 @@ Plug 'lambdalisue/battery.vim'
 """Git
 ":DiffviewOpen
 Plug 'sindrets/diffview.nvim'
-"git signs in gutter "]c" (next) and "[c" (previous) to navigate hunks
+"git signs in gutter 
 Plug 'airblade/vim-gitgutter'
 
 call plug#end()
@@ -548,6 +548,7 @@ sections = {
         color_error = colors.red,
         color_warn = colors.yellow,
         color_info = colors.blue1,
+        color_hint = colors.purple,
         },
         {'filename', file_status = true} ,
         }, --end of segment c
@@ -578,7 +579,7 @@ sections = {
     lualine_z = {{'progress'} , {'location', icon = ''}},
     
 },
-extensions = { 'fzf' }
+extensions = { 'fzf','chadtree' }
 }
 
 EOF
