@@ -302,6 +302,21 @@ colorscheme onedark
 "  return printf('%s', get(battery_icon, nf))
 "endfunction
 
+" ██████╗ ██╗████████╗
+"██╔════╝ ██║╚══██╔══╝
+"██║  ███╗██║   ██║   
+"██║   ██║██║   ██║   
+"╚██████╔╝██║   ██║   
+" ╚═════╝ ╚═╝   ╚═╝   
+"git
+"###GitGutter
+highlight GitGutterChange guifg=#61afef ctermfg=3
+
+nmap ]a <Plug>(GitGutterNextHunk)
+nmap [a <Plug>(GitGutterPrevHunk)
+
+let g:gitgutter_grep = "rg"
+
 "███████╗███████╗███████╗
 "██╔════╝╚══███╔╝██╔════╝
 "█████╗    ███╔╝ █████╗  
@@ -505,7 +520,7 @@ sections = {
     lualine_b = { 
         {'diff', colored = true,
         color_added = colors.green,
-        color_modified = colors.blue ,
+        color_modified = colors.blue,
         color_removed = colors.red,
 
         },
