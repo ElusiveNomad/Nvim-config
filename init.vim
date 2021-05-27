@@ -31,6 +31,7 @@ set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
 set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
+"""auto commands
 "set cursorline
 "sets cursorline and cursor column only on the current window
 augroup Cursor
@@ -41,6 +42,28 @@ augroup Cursor
     autocmd WinLeave * setlocal nocursorcolumn
 augroup END
 
+augroup EnteringFiles
+    autocmd!
+    "enables spellcheck on .txt and extensionless files
+    autocmd BufEnter *.txt setlocal spell spelllang=en_us
+    "turns off line wrapping
+    autocmd BufEnter :se nowrap
+augroup END
+
+augroup terminal
+    autocmd!
+    "automatically changes the mode to insert mode for new term windows
+    autocmd TermOpen * startinsert
+    "removes line numbers for the terminal when a terminal is opened
+    autocmd TermOpen * setlocal norelativenumber & nonumber 
+    "& laststatus=0
+augroup END
+
+augroup Templates
+    autocmd!
+    "adds bash shebang to .sh files
+    autocmd bufnewfile *.sh 0r ~/.config/nvim/templates/skeleton.sh
+augroup END
 
 "sets termguicolors (24bit in iTerm) if available
 if (has("termguicolors"))
@@ -64,18 +87,6 @@ set fileformat=unix
 
 "for firenvim
 set guifont=Hack\ Nerd\ Font\ Mono:h15
-
-"enables spellcheck on .txt and extensionless files
-autocmd BufEnter *.txt setlocal spell spelllang=en_us
-
-"turns off line wrapping
-autocmd BufEnter :se nowrap
-
-"automatically changes the mode to insert mode for new term windows
-autocmd TermOpen * startinsert
-"removes line numbers for the terminal when a terminal is opened
-autocmd TermOpen * setlocal norelativenumber & nonumber 
-"& laststatus=0
 
 
 "----custom key-bindings----
