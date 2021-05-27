@@ -265,6 +265,9 @@ let g:onedark_terminal_italics = 1
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
 
+"italics when using light colorscheme "one" not "onedark"
+let g:one_allow_italics = 1
+
 "custom colorscheme
 colorscheme onedark
 
@@ -494,8 +497,16 @@ sections = {
 
     },
     lualine_b = { 
-        {'branch', icon = '', color = {fg = colors.violet}},
+        {'diff', colored = true,
+        color_added = colors.green,
+        color_modified = colors.blue ,
+        color_removed = colors.red,
+
         },
+
+        {'branch', icon = '', color = {fg = colors.violet}},
+
+        },  --end of segment b
 
     lualine_c = { 
         {'diagnostics', 
@@ -505,7 +516,7 @@ sections = {
         color_info = colors.blue1,
         },
         {'filename', file_status = true} ,
-    },
+        }, --end of segment c
 
     lualine_x = { 'encoding', 'filetype' },
 
