@@ -54,6 +54,8 @@ augroup terminal
     autocmd!
     "automatically changes the mode to insert mode for new term windows
     autocmd TermOpen * startinsert
+    "changes the mode to insert mode when switching to a term buffer
+    autocmd BufEnter * if &buftype == "terminal" | :startinsert | endif
     "removes line numbers for the terminal when a terminal is opened
     autocmd TermOpen * setlocal norelativenumber & nonumber 
     "& laststatus=0
@@ -120,8 +122,8 @@ inoremap <S-F1> <C-O>:%y<CR>
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
 tnoremap <Esc> <C-\><C-n>
-"Pressing <leader> and hh will clear highlighting
-nnoremap <leader>hh :nohlsearch<CR>
+"Pressing <leader> and n will clear highlighting
+nnoremap <leader>n :nohlsearch<CR>
 
 """splits
 "navigate splits with leader w 
