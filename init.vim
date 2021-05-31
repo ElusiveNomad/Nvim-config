@@ -241,7 +241,8 @@ Plug 'folke/which-key.nvim'
 "Language Server Protocol or lsp for short
 Plug 'neovim/nvim-lspconfig'
 "autocomplete (using with lsp)
-Plug 'nvim-lua/completion-nvim'
+"Plug 'nvim-lua/completion-nvim'
+"
 "autocomplete (goes with lsp)
 "Plug 'hrsh7th/nvim-compe'
 """colorizes hex codes (hex codes will be in their respective color)
@@ -259,6 +260,8 @@ Plug 'voldikss/vim-floaterm'
 """neovim in chrome and some other browsers
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 """colorscheme
+Plug 'morhetz/gruvbox'               "gruvbox
+
 Plug 'joshdick/onedark.vim'          "onedark
 Plug 'rakr/vim-one'                  "onedark with light theme
 "Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
@@ -290,7 +293,8 @@ let g:onedark_hide_endofbuffer = 1
 let g:one_allow_italics = 1
 
 "custom colorscheme
-colorscheme onedark
+"colorscheme onedark
+colorscheme gruvbox
 
 "lua << EOF
 "
@@ -517,7 +521,7 @@ local colors = {
 require('lualine').setup{
 
 options = {
-    theme = 'onedark',
+    theme = 'gruvbox',
     section_separators = {'', ''},
     component_separators = {'|', '|'},
     disabled_filetypes = {},
