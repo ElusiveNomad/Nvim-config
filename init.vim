@@ -499,7 +499,7 @@ require'compe'.setup {
     path = true;
     buffer = {menu = ""},
     --buffer = true;
-    calc = true;
+    calc = false;
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = false;
