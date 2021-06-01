@@ -102,7 +102,8 @@ nnoremap <leader>o o<Esc>k
 "Press F9 in normal mode to run python script into separate floaterm window 
 "nnoremap <F9> :w<CR>:FloatermNew python3 %<CR>
 "nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
-nnoremap <F9> :w<CR> :term python3 %<CR>
+"nnoremap <F9> :w<CR> :term python3 %<CR>
+nnoremap <silent> <F9> :w<CR> :call RunCode()<CR>
 
 " example for term related remap nnoremap <leader>q :tab sp<CR> :term lazygit %<CR>
 
@@ -179,6 +180,22 @@ nnoremap <silent> <leader><leader>C :call ToggleTheme()<CR>
 command! -range=% HardcopyPdf <line1>,<line2> hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo 'Created: %.pdf'
 
 """functions
+
+"runs the code in a term buffer depending on filetype
+function! RunCode()
+    let fileExtension = expand("%:e")
+    if fileExtension == "py"
+        term python3 %
+    elseif fileExtension == "sh"
+        term bash %
+    else
+        echo fileExtension "is probably not executable"
+    endif
+
+endfunction
+
+"toggles
+
 function! ToggleStatusBar()
     if &laststatus
         setlocal laststatus=0
