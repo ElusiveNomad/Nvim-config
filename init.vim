@@ -101,7 +101,8 @@ nnoremap <leader>o o<Esc>k
 
 "Press F9 in normal mode to run python script into separate floaterm window 
 "nnoremap <F9> :w<CR>:FloatermNew python3 %<CR>
-nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
+"nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
+nnoremap <F9> :w<CR> :term python3 %<CR>
 
 " example for term related remap nnoremap <leader>q :tab sp<CR> :term lazygit %<CR>
 
