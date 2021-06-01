@@ -642,9 +642,9 @@ sections = {
     },
     lualine_b = { 
         {'diff', colored = true,
-        color_added = colors.green,
-        color_modified = colors.blue,
-        color_removed = colors.red,
+        --color_added = colors.green,
+        --color_modified = colors.blue,
+        --color_removed = colors.red,
 
         },
 
