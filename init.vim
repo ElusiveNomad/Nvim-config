@@ -3,7 +3,7 @@
 "   /  |/ / _ \/ __ \ | / / / __ `__ \
 "  / /|  /  __/ /_/ / |/ / / / / / / /
 " /_/ |_/\___/\____/|___/_/_/ /_/ /_/ 
-                                    
+
 "TESTING---------
 "minimalist
 "set both to 2 to show 
@@ -243,8 +243,13 @@ Plug 'neovim/nvim-lspconfig'
 "autocomplete (using with lsp)
 "Plug 'nvim-lua/completion-nvim'
 "
-"autocomplete (goes with lsp)
+
+"""autocomplete (goes with lsp)
 Plug 'hrsh7th/nvim-compe'
+"completion source for compe
+Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+
+
 """colorizes hex codes (hex codes will be in their respective color)
 Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
@@ -482,15 +487,18 @@ require'compe'.setup {
 
   source = {
     path = true;
-    buffer = true;
+    buffer = {menu = ""},
+    --buffer = true;
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = false;
     ultisnips = true;
+    treesitter = {menu = "滑"},
+    --tabnine= {menu = ""},
+    tabnine= {menu = "T9"},
   };
 }
-
 
 -- use tabs for completion
 local t = function(str)
