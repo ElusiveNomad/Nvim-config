@@ -169,8 +169,8 @@ nnoremap <silent> <leader><leader>n :call ToggleRelativeNumber()<CR>
 nnoremap <silent> <leader><leader>cc :call ToggleCursorColumn()<CR>
 "pressing leader twice will toggle the cursor line
 nnoremap <silent> <leader><leader>cl :call ToggleCursorline()<CR>
-"pressing leader twice and d will toggle between a light and dark colorscheme
-nnoremap <silent> <leader><leader>C :call ToggleColorscheme()<CR>
+"pressing leader twice and d will toggle between a light and dark theme
+nnoremap <silent> <leader><leader>C :call ToggleTheme()<CR>
 
 
 """Commands
@@ -220,14 +220,24 @@ function! ToggleCursorline()
     endif
 endfunction
 
-"relies on rakr/vim-one for detecting and changing to light colorscheme
-function! ToggleColorscheme()
-    if g:colors_name == "one"
+"toggles between a light and dark theme
+function! ToggleTheme()
+
+    if g:colors_name == "one" && &background == "light"
         colorscheme onedark
         set background=dark
-    else
+        echo "switched to onedark"
+    elseif g:colors_name == "onedark"
         colorscheme one
         set background=light
+        echo "switched to one-light"
+
+    elseif &background == "light"
+        set background=dark
+        echo "set to dark bg"
+    else
+        set background=light
+        echo "set to light bg"
     endif
 endfunction
 
