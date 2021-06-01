@@ -79,7 +79,7 @@ set showmatch
 set clipboard=unnamed
 
 "enables python highlighting features
-let python_highlight_all = 1
+"let python_highlight_all = 1
 
 """for python
 set tabstop=4
@@ -248,13 +248,11 @@ call plug#begin('~/.vim/plugged')
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 "Plug 'liuchengxu/vim-which-key'
+
 "Language Server Protocol or lsp for short
 Plug 'neovim/nvim-lspconfig'
-"autocomplete (using with lsp)
-"Plug 'nvim-lua/completion-nvim'
-"
 
-"""autocomplete (goes with lsp)
+""" "autocomplete" (goes with lsp)
 Plug 'hrsh7th/nvim-compe'
 "completion source for compe
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
@@ -274,7 +272,8 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'voldikss/vim-floaterm'
 """neovim in chrome and some other browsers
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-"""colorscheme
+
+""" "colorscheme"
 Plug 'morhetz/gruvbox'               "gruvbox
 
 Plug 'joshdick/onedark.vim'          "onedark
@@ -282,6 +281,7 @@ Plug 'rakr/vim-one'                  "onedark with light theme
 "Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 """fzf
 Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
 Plug 'junegunn/fzf.vim'
@@ -299,17 +299,24 @@ Plug 'airblade/vim-gitgutter'
 call plug#end()
 """##########################
 
-"italics with onedark theme (looks like it just affects comments)
-let g:onedark_terminal_italics = 1
+"Misc
+
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
 
-"italics when using light colorscheme "one" not "onedark"
-let g:one_allow_italics = 1
+
+"italics
+let g:one_allow_italics = 1         "one
+let g:onedark_terminal_italics = 1  "onedark
+let g:gruvbox_italic = 1            "gruvbox
 
 "custom colorscheme
 "colorscheme onedark
 colorscheme gruvbox
+
+"changes comments to italic, but resets to normal when changing colorscheme
+"highlight Comment gui=italic
+
 
 "lua << EOF
 "
