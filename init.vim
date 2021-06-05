@@ -22,9 +22,6 @@ set incsearch
 "sets mapleader to <spacebar>
 let mapleader = ' '
 set number relativenumber
-set encoding=utf-8
-set fileencoding=utf-8
-syntax enable
 set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
@@ -482,20 +479,7 @@ EOF
 "lua require'lspconfig'.<server>.setup{<config>}
 "#example: 
 "lua require'lspconfig'.pyright.setup{}
-
-"with completion-nvim plugin---------------------
-"autocompletion for python with pyright
-"lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach, settings={python={analysis={typeChekcingMode="off"}}}}
-"autocomplete for bash (files)
-"lua require'lspconfig'.bashls.setup{on_attach=require'completion'.on_attach}
-"autocomplete for .vim
-"lua require'lspconfig'.vimls.setup{on_attach=require'completion'.on_attach}
-"autocomplete for c++
-"lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
-" Use <Tab> and <S-Tab> to navigate through popup menu
-"inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
+"
 lua require'lspconfig'.pyright.setup{}
 lua require'lspconfig'.bashls.setup{}
 lua require'lspconfig'.vimls.setup{}
