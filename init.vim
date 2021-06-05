@@ -338,32 +338,6 @@ colorscheme gruvbox
 "changes comments to italic, but resets to normal when changing colorscheme
 "highlight Comment gui=italic
 
-
-"lua << EOF
-"
-"--https://github.com/RRethy/nvim-base16
-"--colorschemes are also listed in 
-"local colorscheme = require('base16-colorscheme')
-"-- provide the name of a builtin colorscheme
-"colorscheme.setup('one-light')
-"
-"
-"EOF
-
-"better battery icons
-"function! Battery_icon() 
-"  let l:battery_icon = {
-"    \ 5: " ",
-"    \ 4: " ",
-"    \ 3: " ",
-"    \ 2: " ",
-"    \ 1: " "}
-"    
-"  let l:backend = battery#backend()
-"  let l:nf = float2nr(round(backend.value / 20.0))
-"  return printf('%s', get(battery_icon, nf))
-"endfunction
-
 " ██████╗ ██╗████████╗
 "██╔════╝ ██║╚══██╔══╝
 "██║  ███╗██║   ██║   
@@ -520,7 +494,6 @@ require'compe'.setup {
     vsnip = false;
     ultisnips = true;
     treesitter = {menu = "滑"},
-    --tabnine= {menu = ""},
   };
 }
 
@@ -569,23 +542,8 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
 
-"╔═══════════════════════════════╗
-" _ _  _  _ | _|_. _  _ |\ |  . _  
-"(_(_)||||_)|(-|_|(_)| )| \|\/|||| 
-"        |                         
-"╚═══════════════════════════════╝     
-"
-"imap <tab> <Plug>(completion_smart_tab)
-"imap <s-tab> <Plug>(completion_smart_s_tab)
-
-" Set completeopt to have a better completion experience
-"set completeopt=menuone,noinsert,noselect
-"set completeopt-=preview
-" Avoid showing message extra message when using completion
-"set shortmess+=c
 
 
-"
 "##########COLORIZER##########
 "
 "colorizer for displaying color as a highlight 
