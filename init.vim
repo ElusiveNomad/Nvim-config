@@ -118,8 +118,8 @@ nnoremap <leader>f :Files<CR>
 
 "Pressing F9 in insert mode will run the python script in the current buffer
 inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
-"makes a hotkey that copies everything (F1) in insert mode
-inoremap <S-F1> <C-O>:%y<CR>
+"makes a hotkey that copies everything (shift F1) in insert mode
+inoremap <F13> <C-O>:%y<CR>
 "Pressing F12 will save and do :source load-vim-script % 
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
@@ -313,6 +313,9 @@ Plug 'lambdalisue/battery.vim'
 Plug 'sindrets/diffview.nvim', {'on': 'DiffviewOpen'}
 "git signs in gutter 
 Plug 'airblade/vim-gitgutter'
+
+"""Misc
+Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
 
 call plug#end()
 """##########################
