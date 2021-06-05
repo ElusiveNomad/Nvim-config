@@ -315,6 +315,8 @@ Plug 'sindrets/diffview.nvim', {'on': 'DiffviewOpen'}
 "git signs in gutter 
 Plug 'airblade/vim-gitgutter'
 
+"""Markdown
+Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
 """Misc
 Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
 
@@ -830,7 +832,7 @@ wk.register({
   t = {
     name = "floaterm", -- optional group name
     p = { ":FloatermNew python3<CR>"                           ,"python3" }, 
-    y = { ":FloatermNew ytop<CR>"                              ,"ytop" }, 
+    b = { ":FloatermNew btm<CR>"                              ,"btm" }, 
     i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
     t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
     n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
