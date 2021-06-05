@@ -273,7 +273,8 @@ Plug 'neovim/nvim-lspconfig'
 """ "autocomplete" (goes with lsp)
 Plug 'hrsh7th/nvim-compe'
 "completion source for compe
-Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+"Plug 'tzachar/compe-tabnine', { 'do': './install.sh' } "took up too much cpu
+"(50%)
 
 
 """colorizes hex codes (hex codes will be in their respective color)
@@ -534,7 +535,6 @@ require'compe'.setup {
     ultisnips = true;
     treesitter = {menu = "滑"},
     --tabnine= {menu = ""},
-    tabnine= {menu = "T9"},
   };
 }
 
