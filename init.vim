@@ -310,7 +310,7 @@ Plug 'lambdalisue/battery.vim'
 
 """Git
 ":DiffviewOpen
-Plug 'sindrets/diffview.nvim'
+Plug 'sindrets/diffview.nvim', {'on': 'DiffviewOpen'}
 "git signs in gutter 
 Plug 'airblade/vim-gitgutter'
 
