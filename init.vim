@@ -773,11 +773,12 @@ local wk = require("which-key")
 wk.register({
   t = {
     name = "floaterm", -- optional group name
-    p = { ":FloatermNew python3<CR>"                           ,"python3" }, 
+    p = { ":FloatermNew python3<CR>"                           ,"python3 [REPL]" }, 
     b = { ":FloatermNew btm<CR>"                              ,"btm" }, 
     i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
     t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
     n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
+    c = { ":FloatermNew clojure<CR>"                              ,"clojure [REPL]" }, 
   },
 }, { prefix = "<leader>" })
 
