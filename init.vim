@@ -286,8 +286,6 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 "Floaterm
 Plug 'voldikss/vim-floaterm'
-"""neovim in chrome and some other browsers
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 """ "colorscheme"
 Plug 'morhetz/gruvbox'               "gruvbox
