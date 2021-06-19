@@ -779,6 +779,7 @@ wk.register({
             i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
             t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
             n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
+            l = { ":FloatermNew lua<CR>"                              ,"lua [REPL]" }, 
             c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
     },
 }, { prefix = "<leader>" })
