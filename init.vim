@@ -28,6 +28,11 @@ set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
 set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
+let fileExtension = expand("%:e")
+    if fileExtension == "clj"
+        let maplocalleader = ','
+    endif
+
 """auto commands
 "set cursorline
 "sets cursorline and cursor column only on the current window
