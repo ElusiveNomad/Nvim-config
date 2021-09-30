@@ -166,15 +166,16 @@ nnoremap <Tab><Space> :new $MYVIMRC<CR> :lcd %:p:h<CR>
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR> :echo<CR>
 "pressing leader twice will toggle the tab bar
 nnoremap <silent> <leader><leader>t :call ToggleTabBar()<CR>
-"pressing leader twice will toggle the line numbers
+"pressing leader twice and n will toggle the line numbers
 nnoremap <silent> <leader><leader>n :call ToggleRelativeNumber()<CR>
-"pressing leader twice will toggle the cursor column
+"pressing leader twice and cc will toggle the cursor column
 nnoremap <silent> <leader><leader>cc :call ToggleCursorColumn()<CR>
-"pressing leader twice will toggle the cursor line
+"pressing leader twice and cl will toggle the cursor line
 nnoremap <silent> <leader><leader>cl :call ToggleCursorline()<CR>
 "pressing leader twice and d will toggle between a light and dark theme
 nnoremap <silent> <leader><leader>C :call ToggleTheme()<CR>
-
+"pressing leader twice and r will toggle between showing and not showing return characters
+nnoremap <silent> <leader><leader>r :call ToggleShowReturnChar()<CR>
 
 """Commands
 "doing :HardcopyPdf will convert the current file to a pdf
@@ -196,6 +197,18 @@ function! RunCode()
 endfunction
 
 "toggles
+
+function! ToggleShowReturnChar()
+    if &list
+        setlocal nolist
+        echom "defaults"
+    else
+        setlocal list
+        setlocal listchars=eol:↵,tab:\ \ 
+        echom "newchange"
+    endif
+endfunction
+
 
 function! ToggleStatusBar()
     if &laststatus
