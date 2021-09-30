@@ -204,7 +204,7 @@ function! ToggleShowReturnChar()
         echom "defaults"
     else
         setlocal list
-        setlocal listchars=eol:↵,tab:\ \ 
+        setlocal listchars=eol:↵,trail:❙,tab:\ \ 
         echom "newchange"
     endif
 endfunction
