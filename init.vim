@@ -282,7 +282,7 @@ Plug 'hrsh7th/nvim-compe'
 """colorizes hex codes (hex codes will be in their respective color)
 Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
-"Plug 'jiangmiao/auto-pairs' 
+Plug 'jiangmiao/auto-pairs' 
 "File tree
 Plug 'kyazdani42/nvim-tree.lua'
 """Lualine statusline 
