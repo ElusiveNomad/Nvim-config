@@ -320,9 +320,15 @@ Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
 """Misc
 Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
 
+Plug 'lukas-reineke/indent-blankline.nvim'
 call plug#end()
 """##########################
 
+"Indent line
+let g:indent_blankline_char = '│'
+let g:indent_blankline_filetype_exclude = ['help']
+let g:indent_blankline_show_current_context = v:true
+"let g:indent_blankline_use_treesitter = v:true
 "Misc
 
 "removes the ~ at the end of buffers with the onedark colorscheme 
