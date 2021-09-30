@@ -9,8 +9,7 @@
 "set both to 2 to show 
 "set laststatus=0
 "set showtabline =0
-"temp btw
-nnoremap <leader>tv :FloatermNew mvim<CR>
+
 "this gives live feedback while searching with /
 set incsearch
 
@@ -91,7 +90,7 @@ set expandtab
 set autoindent
 set fileformat=unix
 
-"for firenvim
+
 set guifont=Hack\ Nerd\ Font\ Mono:h15
 
 
@@ -267,17 +266,12 @@ call plug#begin('~/.vim/plugged')
 
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
-"Plug 'liuchengxu/vim-which-key'
 
 "Language Server Protocol or lsp for short
 Plug 'neovim/nvim-lspconfig'
 
 """ "autocomplete" (goes with lsp)
 Plug 'hrsh7th/nvim-compe'
-"completion source for compe
-"Plug 'tzachar/compe-tabnine', { 'do': './install.sh' } "took up too much cpu
-"(50%)
-
 
 """colorizes hex codes (hex codes will be in their respective color)
 Plug 'norcalli/nvim-colorizer.lua'
@@ -297,7 +291,8 @@ Plug 'morhetz/gruvbox'               "gruvbox
 
 Plug 'joshdick/onedark.vim'          "onedark
 Plug 'rakr/vim-one'                  "onedark with light theme
-"Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
+
+
 """treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 
@@ -317,6 +312,7 @@ Plug 'airblade/vim-gitgutter'
 
 """Markdown
 Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
+
 """Misc
 Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
 
