@@ -284,7 +284,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 "" double grouping symbols
 "Plug 'jiangmiao/auto-pairs' 
 "File tree
-Plug 'ms-jpq/chadtree', {'on':'CHADopen', 'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'kyazdani42/nvim-tree.lua'
 """Lualine statusline 
 Plug 'hoob3rt/lualine.nvim'
 "for icons in the lualine statusline
@@ -667,7 +667,7 @@ sections = {
     lualine_z = {{'progress'} , {'location', icon = ''}},
     
 },
-extensions = { 'fzf','chadtree' }
+extensions = { 'fzf'}
 }
 
 EOF
@@ -730,15 +730,17 @@ require"bufferline".setup{
     }
 EOF
 
-" ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗██████╗ ███████╗███████╗
-"██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔════╝██╔════╝
-"██║     ███████║███████║██║  ██║   ██║   ██████╔╝█████╗  █████╗  
-"██║     ██╔══██║██╔══██║██║  ██║   ██║   ██╔══██╗██╔══╝  ██╔══╝  
-"╚██████╗██║  ██║██║  ██║██████╔╝   ██║   ██║  ██║███████╗███████╗
-" ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
-"chadtree                                                                 
 
-nnoremap <F1> <CMD>CHADopen<CR>
+"████████╗██████╗ ███████╗███████╗
+"╚══██╔══╝██╔══██╗██╔════╝██╔════╝
+"   ██║   ██████╔╝█████╗  █████╗  
+"   ██║   ██╔══██╗██╔══╝  ██╔══╝  
+"   ██║   ██║  ██║███████╗███████╗
+"   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
+"                                 
+"nvim-tree
+lua require'nvim-tree'.setup()
+nnoremap <F1> :NvimTreeToggle<CR>
 
 
 "███████╗██╗      ██████╗  █████╗ ████████╗███████╗██████╗ ███╗   ███╗
