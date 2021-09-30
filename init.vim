@@ -299,7 +299,7 @@ Plug 'joshdick/onedark.vim'          "onedark
 Plug 'rakr/vim-one'                  "onedark with light theme
 "Plug 'monsonjeremy/onedark.nvim'    "onedark with lua
 """treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
 
 """fzf
 Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
