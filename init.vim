@@ -553,7 +553,7 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 EOF
 
 "auto import with compe
-inoremap <silent><expr> <Space> compe#confirm('<Space>', 'i')
+inoremap <silent><expr> <M-Space> compe#confirm('<Enter>')
 
 
 "##########COLORIZER##########
