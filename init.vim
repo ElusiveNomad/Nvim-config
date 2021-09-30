@@ -691,22 +691,32 @@ EOF
 nnoremap <silent><leader>[ :BufferLineCycleNext<CR>
 nnoremap <silent><leader>] :BufferLineCyclePrev<CR>
 
-" These commands will move the current buffer backwards or forwards in the bufferline
-nnoremap <silent><mymap> :BufferLineMoveNext<CR>
-nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+"navigate using numbers
+nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
+nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
+nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
+nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
+nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
+nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
-" These commands will sort buffers by directory, language, or a custom criteria
-nnoremap <silent><leader>be :BufferLineSortByExtension<CR>
-nnoremap <silent><leader>bd :BufferLineSortByDirectory<CR>
-nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
+"" These commands will move the current buffer backwards or forwards in the bufferline
+"nnoremap <silent><mymap> :BufferLineMoveNext<CR>
+"nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+"
+"" These commands will sort buffers by directory, language, or a custom criteria
+"nnoremap <silent><leader>be :BufferLineSortByExtension<CR>
+"nnoremap <silent><leader>bd :BufferLineSortByDirectory<CR>
+"nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
 
 lua << EOF
 require"bufferline".setup{
         options = {
             view = "default",
             numbers = "ordinal",
-            number_style = "subscript", -- buffer_id at index 1, ordinal at index 2
-            mappings = true,  --leader 1 through 9 can be used to navigate tabs
+            --number_style = "subscript", -- buffer_id at index 1, ordinal at index 2
             buffer_close_icon= "",
             modified_icon = "●",
             close_icon = "",
