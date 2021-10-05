@@ -823,4 +823,4 @@ wk.register({
             c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
     },
 }, { prefix = "<leader>" })
-
+EOF
