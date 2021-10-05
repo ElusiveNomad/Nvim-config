@@ -278,7 +278,7 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 "conjure (for clojure)
-Plug 'Olical/conjure', {'tag': 'v4.24.0'}
+Plug 'Olical/conjure', {'tag': 'v4.24.0', 'for': 'clojure'}
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 
