@@ -502,8 +502,7 @@ EOF
 "#format is:
 "lua require'lspconfig'.<server>.setup{<config>}
 "#example: 
-"lua require'lspconfig'.pyright.setup{}
-"
+
 lua require'lspconfig'.pyright.setup{}
 lua require'lspconfig'.bashls.setup{}
 lua require'lspconfig'.vimls.setup{}
@@ -512,6 +511,7 @@ lua require'lspconfig'.clojure_lsp.setup{}
 nnoremap <silent>K :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent>gD :lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent>gr :lua vim.lsp.buf.rename()<CR>
 
 
 " ██████╗ ██████╗ ███╗   ███╗██████╗ ███████╗
