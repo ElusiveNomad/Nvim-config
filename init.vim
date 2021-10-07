@@ -369,6 +369,15 @@ colorscheme gruvbox
 "╚██████╔╝██║   ██║   
 " ╚═════╝ ╚═╝   ╚═╝   
 "git
+"###GitGutter
+"highlight GitGutterChange guifg=#61afef ctermfg=3
+
+"nmap ]a <Plug>(GitGutterNextHunk)
+"nmap [a <Plug>(GitGutterPrevHunk)
+
+"let g:gitgutter_grep = "rg"
+
+
 
 "### git signs plugin
 lua << EOF
@@ -857,3 +866,4 @@ wk.register({
     },
 }, { prefix = "<leader>" })
 EOF
+
