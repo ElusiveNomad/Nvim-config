@@ -323,7 +323,8 @@ Plug 'lambdalisue/battery.vim'
 ":DiffviewOpen
 Plug 'sindrets/diffview.nvim', {'on': 'DiffviewOpen'}
 "git signs in gutter 
-Plug 'airblade/vim-gitgutter'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 """Markdown
 Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
@@ -365,13 +366,42 @@ colorscheme gruvbox
 "╚██████╔╝██║   ██║   
 " ╚═════╝ ╚═╝   ╚═╝   
 "git
-"###GitGutter
-highlight GitGutterChange guifg=#61afef ctermfg=3
 
-nmap ]a <Plug>(GitGutterNextHunk)
-nmap [a <Plug>(GitGutterPrevHunk)
+"### git signs plugin
+lua << EOF
+require('gitsigns').setup{
+signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+keymaps = {
+    -- Default keymap options
+    noremap = true,
+    
+    --NOTE: the n in 'n [a' denotes normal mode
+    ['n ]a'] = { expr = true, "&diff ? ']a' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+    ['n [a'] = { expr = true, "&diff ? '[a' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
-let g:gitgutter_grep = "rg"
+    ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+    ['n <leader>hS'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+    ['n <leader>hU'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+
+    -- Text objects
+    ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+  },
+}
+EOF
 
 "███████╗███████╗███████╗
 "██╔════╝╚══███╔╝██╔════╝
