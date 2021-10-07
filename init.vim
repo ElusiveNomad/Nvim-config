@@ -329,6 +329,9 @@ Plug 'lewis6991/gitsigns.nvim'
 """Markdown
 Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
 
+"""Movement 
+Plug 'ggandor/lightspeed.nvim'
+
 """Misc
 Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
 
