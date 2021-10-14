@@ -556,6 +556,8 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'treesitter' },
+    { name = 'path' },
   },
   experimental = {
       native_menu = false,
