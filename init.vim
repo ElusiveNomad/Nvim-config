@@ -4,18 +4,10 @@
 "  / /|  /  __/ /_/ / |/ / / / / / / /
 " /_/ |_/\___/\____/|___/_/_/ /_/ /_/ 
 
-"TESTING---------
-"minimalist
-"set both to 2 to show 
-"set laststatus=0
-"set showtabline =0
 
-"this gives live feedback while searching with /
-set incsearch
-
-
-"btw the 3d fonts:
-"slant, ANSI Shadow, straight
+"3d fonts from
+"https://patorjk.com/software/taag/#p=testall&f=Isometric1&t=test
+"fonts used: slant, ANSI Shadow, straight
 
 "general settings----------
 "sets mapleader to <spacebar>
@@ -25,15 +17,35 @@ set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
 set hidden                    " Required to keep multiple buffers open
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set fileformat=unix
+
+set guifont=Hack\ Nerd\ Font\ Mono:h15
 set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
+"this gives live feedback while searching with /
+set incsearch
+
+"shows matching grouping symbols
+set showmatch
+"copies to system clipboard
+set clipboard=unnamed
+
+"sets termguicolors (24bit in iTerm) if available
+if (has("termguicolors"))
+    set termguicolors
+endif
 let fileExtension = expand("%:e")
     if fileExtension == "clj"
         let maplocalleader = ','
     endif
 
 """auto commands
-"set cursorline
 "sets cursorline and cursor column only on the current window
 augroup Cursor
     autocmd!
@@ -43,7 +55,7 @@ augroup Cursor
     autocmd WinLeave * setlocal nocursorcolumn
 augroup END
 
-augroup EnteringFiles
+augroup EnteringBuffers
     autocmd!
     "enables spellcheck on .txt and extensionless files
     autocmd BufEnter *.txt setlocal spell spelllang=en_us
@@ -59,39 +71,14 @@ augroup terminal
     autocmd BufEnter * if &buftype == "terminal" | :startinsert | endif
     "removes line numbers for the terminal when a terminal is opened
     autocmd TermOpen * setlocal norelativenumber & nonumber 
-    "& laststatus=0
-    "autocloses the terminal without need of pressing enter
-    "autocmd TermClose * call feedkeys("i")
 augroup END
 
-augroup Templates
+augroup skeleton
     autocmd!
     "adds bash shebang to .sh files
     autocmd bufnewfile *.sh 0r ~/.config/nvim/templates/skeleton.sh
 augroup END
 
-"sets termguicolors (24bit in iTerm) if available
-if (has("termguicolors"))
-    set termguicolors
-endif
-"""shows matching grouping symbols
-set showmatch
-"""copies to system clipboard
-set clipboard=unnamed
-
-"enables python highlighting features
-"let python_highlight_all = 1
-
-"""for python
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set fileformat=unix
-
-
-set guifont=Hack\ Nerd\ Font\ Mono:h15
 
 
 "----custom key-bindings----
@@ -100,13 +87,8 @@ inoremap jk <Esc>
 "maps leader o to the non insertmode versions of o
 nnoremap <leader>o o<Esc>k
 
-"Press F9 in normal mode to run python script into separate floaterm window 
-"nnoremap <F9> :w<CR>:FloatermNew python3 %<CR>
-"nnoremap <F9> :w<CR> :tab sp<CR> :term python3 %<CR>
-"nnoremap <F9> :w<CR> :term python3 %<CR>
+"F9 Runs code (look at RunCode fn to see supported fileExtensions )
 nnoremap <silent> <F9> :w<CR> :call RunCode()<CR>
-
-" example for term related remap nnoremap <leader>q :tab sp<CR> :term lazygit %<CR>
 
 "lazygit
 nnoremap <leader>g :FloatermNew lazygit <CR>
@@ -114,11 +96,8 @@ nnoremap <leader>g :FloatermNew lazygit <CR>
 nnoremap <leader>m :FloatermNew ncmpcpp<CR>
 
 "fzf vim plugin
-"nnoremap <leader>f :FZF<CR>
 nnoremap <leader>f :Files<CR>
 
-"Pressing F9 in insert mode will run the python script in the current buffer
-inoremap <F9> <C-O>:w<CR> <C-O>:tab sp<CR> <C-O>:term python3 %<CR>
 "makes a hotkey that copies everything (shift F1) in insert mode
 inoremap <F13> <C-O>:%y<CR>
 "Pressing F12 will save and do :source load-vim-script % 
@@ -141,12 +120,6 @@ nnoremap <S-Down> <C-w>+
 nnoremap <S-Left> <C-w><
 nnoremap <S-Right> <C-w>>
 
-"""buffers   (moved to bufferline) 
-"pressing <leader> and 1 will switch to previous buffer
-"nnoremap <leader>1 :bp<CR>
-"pressing <leader> and 2 will switch to the next buffer
-"nnoremap <leader>2 :bn<CR>
-
 "pressing <leader> and 0 will delete the current buffer
 nnoremap <leader>0 :bdelete<CR>
 "leader and minus will force close the current buffer (no <CR> for safety)
@@ -155,12 +128,13 @@ nnoremap <leader>- :bdelete!
 nnoremap <leader>l :ls<CR>
 
 """Misc bindings
-"pressing <leader> and s will open up autocorrect for the word under the cursor
+"pressing <leader> and s will open up spellcheck for the word under the cursor
 nnoremap <leader>s <esc>z=
 "pressing alt space will open this file in nvim 
 "and switch the working directory for this file to .config/nvim
 nnoremap <Tab><Space> :new $MYVIMRC<CR> :lcd %:p:h<CR>
-"Toggle bindings (double leader)
+
+"""Toggle bindings (double leader)
 "pressing leader and leader will toggle the status bar
 "the echo clears out the lingering vanilla statusline when switching
 nnoremap <silent> <leader><leader>s :call ToggleStatusBar()<CR> :echo<CR>
@@ -180,6 +154,7 @@ nnoremap <silent> <leader><leader>r :call ToggleShowReturnChar()<CR>
 """Commands
 "doing :HardcopyPdf will convert the current file to a pdf
 command! -range=% HardcopyPdf <line1>,<line2> hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo 'Created: %.pdf'
+
 
 """functions
 
@@ -278,7 +253,7 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 "conjure (for clojure)
-Plug 'Olical/conjure', {'tag': 'v4.24.0', 'for': 'clojure'}
+Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': 'clojure'}
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 
@@ -344,7 +319,7 @@ let g:indent_blankline_char = '│'
 let g:indent_blankline_filetype_exclude = ['help']
 let g:indent_blankline_show_current_context = v:true
 "let g:indent_blankline_use_treesitter = v:true
-"Misc
+
 
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
@@ -355,8 +330,6 @@ let g:one_allow_italics = 1         "one
 let g:onedark_terminal_italics = 1  "onedark
 let g:gruvbox_italic = 1            "gruvbox
 
-"custom colorscheme
-"colorscheme onedark
 colorscheme gruvbox
 
 "changes comments to italic, but resets to normal when changing colorscheme
@@ -369,14 +342,6 @@ colorscheme gruvbox
 "╚██████╔╝██║   ██║   
 " ╚═════╝ ╚═╝   ╚═╝   
 "git
-"###GitGutter
-"highlight GitGutterChange guifg=#61afef ctermfg=3
-
-"nmap ]a <Plug>(GitGutterNextHunk)
-"nmap [a <Plug>(GitGutterPrevHunk)
-
-"let g:gitgutter_grep = "rg"
-
 
 
 "### git signs plugin
@@ -494,14 +459,6 @@ require('nvim-treesitter.configs').setup({
 
 })
 EOF
-"linefolding
-"set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
-
-
-
-
-
 
 
 "██╗     ███████╗██████╗ 
@@ -761,15 +718,6 @@ nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
-"" These commands will move the current buffer backwards or forwards in the bufferline
-"nnoremap <silent><mymap> :BufferLineMoveNext<CR>
-"nnoremap <silent><mymap> :BufferLineMovePrev<CR>
-"
-"" These commands will sort buffers by directory, language, or a custom criteria
-"nnoremap <silent><leader>be :BufferLineSortByExtension<CR>
-"nnoremap <silent><leader>bd :BufferLineSortByDirectory<CR>
-"nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
-
 lua << EOF
 require"bufferline".setup{
         options = {
@@ -854,16 +802,17 @@ local wk = require("which-key")
 
 --this is the <leader>t ... group
 wk.register({
-        t = {
-            name = "floaterm", -- optional group name
-            p = { ":FloatermNew python3<CR>"                           ,"python3 [REPL]" }, 
-            b = { ":FloatermNew btm<CR>"                              ,"btm" }, 
-            i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
-            t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
-            n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
-            l = { ":FloatermNew lua<CR>"                              ,"lua [REPL]" }, 
-            c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
+    t = {
+        name = "floaterm", -- optional group name
+        p = { ":FloatermNew python3<CR>"                           ,"python3 [REPL]" }, 
+        b = { ":FloatermNew btm<CR>"                              ,"btm" }, 
+        i = { ":FloatermNew speedtest-cli<CR>"                     ,"Internet test" }, 
+        t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
+        n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
+        l = { ":FloatermNew lua<CR>"                              ,"lua [REPL]" }, 
+        c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
     },
-}, { prefix = "<leader>" })
+            }, 
+{ prefix = "<leader>" })
 EOF
 
