@@ -16,7 +16,7 @@ set number relativenumber
 set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
-set hidden                    " Required to keep multiple buffers open
+set hidden                    "buffers do not auto save when switching between buffers 
 
 set tabstop=4
 set softtabstop=4
@@ -86,7 +86,7 @@ augroup YankHighlight
 
 
 "----custom key-bindings----
-"maps jk to <Esc> in insert mode 
+"maps jk to <Esc> in insert mode
 inoremap jk <Esc>
 "maps leader o to the non insertmode versions of o
 nnoremap <leader>o o<Esc>k
@@ -104,7 +104,7 @@ nnoremap <leader>f :Files<CR>
 
 "makes a hotkey that copies everything (shift F1) in insert mode
 inoremap <F13> <C-O>:%y<CR>
-"Pressing F12 will save and do :source load-vim-script % 
+"Pressing F12 will save and do :source load-vim-script %
 nnoremap <F12> :w<CR>:source %<CR>
 "Pressing esc whilst in terminal mode will get back to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -134,7 +134,7 @@ nnoremap <leader>l :ls<CR>
 """Misc bindings
 "pressing <leader> and s will open up spellcheck for the word under the cursor
 nnoremap <leader>s <esc>z=
-"pressing alt space will open this file in nvim 
+"pressing alt space will open this file in nvim
 "and switch the working directory for this file to .config/nvim
 nnoremap <Tab><Space> :new $MYVIMRC<CR> :lcd %:p:h<CR>
 
@@ -334,9 +334,17 @@ let g:indent_blankline_show_current_context = v:true
 "let g:indent_blankline_use_treesitter = v:true
 
 
+
+" ██████╗ ██████╗ ██╗      ██████╗ ██████╗ 
+"██╔════╝██╔═══██╗██║     ██╔═══██╗██╔══██╗
+"██║     ██║   ██║██║     ██║   ██║██████╔╝
+"██║     ██║   ██║██║     ██║   ██║██╔══██╗
+"╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║
+" ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+
+"######### colorscheme
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
-
 
 "italics
 let g:one_allow_italics = 1         "one
@@ -344,6 +352,18 @@ let g:onedark_terminal_italics = 1  "onedark
 let g:gruvbox_italic = 1            "gruvbox
 
 colorscheme gruvbox
+
+"##########COLORIZER##########
+"colorizer for displaying color as a highlight 
+"example:  #0000ff
+lua require 'colorizer'.setup()
+
+"######## highlights
+"changes the floating window colors
+"Normal float was originialy linked to Pmenu
+hi FloatBorder guibg=#342829 guifg=#F34955
+hi NormalFloat guibg=#282828
+
 
 "changes comments to italic, but resets to normal when changing colorscheme
 "highlight Comment gui=italic
@@ -451,7 +471,6 @@ command! -bang -nargs=* GGrep
 "   ██║   ██╔══██╗██╔══╝  ██╔══╝  ╚════██║██║   ██║      ██║   ██╔══╝  ██╔══██╗
 "   ██║   ██║  ██║███████╗███████╗███████║██║   ██║      ██║   ███████╗██║  ██║
 "   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
-"                                                                              
 
 """Treesitter
 "lua require'nvim-treesitter.configs'.setup {highlight = {enable = true}}
@@ -483,7 +502,7 @@ EOF
 
 "#format is:
 "lua require'lspconfig'.<server>.setup{<config>}
-"#example: 
+"#example:
 
 lua require'lspconfig'.pyright.setup{}
 lua require'lspconfig'.bashls.setup{}
@@ -567,13 +586,6 @@ cmp.setup {
 EOF
 
 
-"##########COLORIZER##########
-"
-"colorizer for displaying color as a highlight 
-"example:  #0000ff 
-lua require 'colorizer'.setup()
-
-
 
 "██╗     ██╗   ██╗ █████╗ ██╗     ██╗███╗   ██╗███████╗
 "██║     ██║   ██║██╔══██╗██║     ██║████╗  ██║██╔════╝
@@ -627,15 +639,15 @@ options = {
     icons_enabled = true,
 },
 sections = {
-    lualine_a = { 
+    lualine_a = {
     {'mode', upper = true},
-    {'battery#component', 
+    {'battery#component',
     --color = {bg = '#00000', fg = colors.green}
     }
 
 
     },
-    lualine_b = { 
+    lualine_b = {
         {'diff', colored = true,
         --color_added = colors.green,
         --color_modified = colors.blue,
@@ -647,8 +659,8 @@ sections = {
 
         },  --end of segment b
 
-    lualine_c = { 
-        {'diagnostics', 
+    lualine_c = {
+        {'diagnostics',
         sources = {'nvim_lsp'},
         color_error = colors.red,
         color_warn = colors.yellow,
@@ -660,18 +672,18 @@ sections = {
 
     lualine_x = { 'encoding', 'filetype' },
 
-    lualine_y = { 
+    lualine_y = {
     {'os.date("%a %m/%d")',
         color = {
             bg = colors.yellow,
-            --fg ='#484848' 
+            --fg ='#484848'
             fg = '#000000'
             },
         icon = ''
     
     },
 
-    {'os.date("%I:%M %p")', 
+    {'os.date("%I:%M %p")',
         color = {
             bg = colors.yellow,
             fg = '#000000'
@@ -679,7 +691,7 @@ sections = {
         icon = '| '
             } --end of second os.date
 
-            }, --end of lualine_y 
+            }, --end of lualine_y
             
     lualine_z = {{'progress'} , {'location', icon = ''}},
     
@@ -772,7 +784,7 @@ let g:floaterm_keymap_next   = '<F3>'
 let g:floaterm_keymap_prev   = '<F4>'
 
 "removes floaterm title
-let g:floaterm_title = "" 
+let g:floaterm_title = ""
 
 hi FloatermBorder guibg=#282c34 guifg=#61afef
 "floaterm takes up 90% of the screen
@@ -807,7 +819,7 @@ wk.register({
         l = { ":FloatermNew lua<CR>"                              ,"lua [REPL]" }, 
         c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
     },
-            }, 
+            },
 { prefix = "<leader>" })
 EOF
 
