@@ -25,7 +25,7 @@ set expandtab
 set autoindent
 set fileformat=unix
 
-set guifont=Hack\ Nerd\ Font\ Mono:h15
+set guifont=Hack\ Nerd\ Font\ Mono:h12
 set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 
 "this gives live feedback while searching with /
