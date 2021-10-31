@@ -92,7 +92,8 @@ inoremap jk <Esc>
 nnoremap <leader>o o<Esc>k
 
 "F9 Runs code (look at RunCode fn to see supported fileExtensions )
-nnoremap <silent> <F9> :w<CR> :call RunCode()<CR>
+"nnoremap <silent> <F9> :w<CR> :call RunCode()<CR>
+nnoremap <F9> :call RunCode()<CR>
 
 "lazygit
 nnoremap <leader>g :FloatermNew lazygit <CR>
