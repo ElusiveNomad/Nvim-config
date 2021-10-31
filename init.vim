@@ -501,20 +501,53 @@ EOF
 "███████╗███████║██║     
 "╚══════╝╚══════╝╚═╝     
 
-"#format is:
-"lua require'lspconfig'.<server>.setup{<config>}
-"#example:
+"ad servers by adding to "local servers = ..." list
+lua << EOF
+local nvim_lsp = require('lspconfig')
+--Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-lua require'lspconfig'.pyright.setup{}
-lua require'lspconfig'.bashls.setup{}
-lua require'lspconfig'.vimls.setup{}
-lua require'lspconfig'.clojure_lsp.setup{}
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = { 'pyright', 'bashls', 'vimls', 'clojure_lsp' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+  }
+end
+
+local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+
+for type, icon in pairs(signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+-- icon
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = false,
+    signs = true,
+    virtual_text = {
+      spacing = 4,
+      prefix = ''
+    },
+    update_in_insert = true
+  }
+)
+
+EOF
+
+"lua require'lspconfig'.pyright.setup{}
+"lua require'lspconfig'.bashls.setup{}
+"lua require'lspconfig'.vimls.setup{}
+"lua require'lspconfig'.clojure_lsp.setup{}
 
 nnoremap <silent>K :lua vim.lsp.buf.hover()<CR>
 nnoremap <silent>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent>gD :lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent>gr :lua vim.lsp.buf.rename()<CR>
-
 
 " ██████╗███╗   ███╗██████╗ 
 "██╔════╝████╗ ████║██╔══██╗
