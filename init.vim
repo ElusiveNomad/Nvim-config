@@ -47,13 +47,13 @@ let fileExtension = expand("%:e")
 
 """auto commands
 "sets cursorline and cursor column only on the current window
-augroup Cursor
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
-    autocmd WinLeave * setlocal nocursorline
-    autocmd WinLeave * setlocal nocursorcolumn
-augroup END
+"augroup Cursor
+"    autocmd!
+"    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+"    autocmd WinLeave * setlocal nocursorline
+"    autocmd WinLeave * setlocal nocursorcolumn
+"augroup END
 
 augroup EnteringBuffers
     autocmd!
