@@ -628,8 +628,7 @@ mapping = {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'buffer' },
-    { name = 'treesitter' },
+    { name = 'buffer', keyword_length = 5},
     { name = 'path' },
   },
 
