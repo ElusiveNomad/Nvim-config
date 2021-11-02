@@ -272,6 +272,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 "snippets
 Plug 'L3MON4D3/LuaSnip'
+"extra snippets for luasnip
+Plug 'rafamadriz/friendly-snippets'
 "completion sources for cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -566,6 +568,8 @@ local has_words_before = function()
 end
 
 local luasnip = require 'luasnip'
+
+require('luasnip.loaders.from_vscode').lazy_load()
 
 local cmp = require 'cmp'
 
