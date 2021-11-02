@@ -40,10 +40,12 @@ set clipboard=unnamed
 if (has("termguicolors"))
     set termguicolors
 endif
-let fileExtension = expand("%:e")
-    if fileExtension == "clj"
-        let maplocalleader = ','
-    endif
+
+"let fileExtension = expand("%:e")
+"    if fileExtension == "clj"
+"        let maplocalleader = ','
+"    endif
+
 "autocomplete menu options
 set completeopt=menuone,noselect
 
@@ -260,7 +262,8 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 "conjure (for clojure)
-Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': 'clojure'}
+"Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': 'clojure'}
+
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 
@@ -519,7 +522,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'pyright', 'bashls', 'vimls', 'clojure_lsp' }
+local servers = { 'pyright', 'bashls', 'vimls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -875,7 +878,6 @@ wk.register({
         t = { ":FloatermNew <CR>"                                  ,"Toggle" }, 
         n = { ":FloatermNew ncdu<CR>"                              ,"View space taken" }, 
         l = { ":FloatermNew lua<CR>"                              ,"lua [REPL]" }, 
-        c = { ":FloatermNew lein repl<CR>"                              ,"clojure [REPL]" }, 
     },
             },
 { prefix = "<leader>" })
