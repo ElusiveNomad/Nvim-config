@@ -282,7 +282,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'ray-x/cmp-treesitter'
+"formatting for cmp sources in completion menu
+Plug 'onsails/lspkind-nvim'
 
 """colorizes hex codes (hex codes will be in their respective color)
 Plug 'norcalli/nvim-colorizer.lua'
@@ -563,6 +564,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --
 --"cmp 
 
+-- lspkind icons
+local lspkind = require "lspkind"
+lspkind.init()
 
 -- luasnip
 local has_words_before = function()
@@ -628,6 +632,20 @@ mapping = {
     { name = 'treesitter' },
     { name = 'path' },
   },
+
+  --Uses lspkind
+  formatting = {
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        path = "[path]",
+        luasnip = "[snip]",
+      },
+    },
+  },
+
   experimental = {
       native_menu = false,
       ghost_text = true,
