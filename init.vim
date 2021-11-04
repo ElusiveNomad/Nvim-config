@@ -41,11 +41,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-"let fileExtension = expand("%:e")
-"    if fileExtension == "clj"
-"        let maplocalleader = ','
-"    endif
-
 "autocomplete menu options
 set completeopt=menuone,noselect
 
@@ -261,9 +256,6 @@ endfunction
 """ plugins go here---------------
 call plug#begin('~/.vim/plugged')
 
-"conjure (for clojure)
-"Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': 'clojure'}
-
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 
@@ -330,9 +322,8 @@ Plug 'davidgranstrom/nvim-markdown-preview', {'on': 'MarkdownPreview'}
 Plug 'ggandor/lightspeed.nvim'
 
 """Misc
-Plug 'alec-gibson/nvim-tetris', {'on': 'Tetris'} "lua tetris
-
 Plug 'lukas-reineke/indent-blankline.nvim'
+
 call plug#end()
 """##########################
 
