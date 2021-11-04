@@ -351,6 +351,8 @@ let g:indent_blankline_show_current_context = v:true
 "╚██████╗╚██████╔╝███████╗╚██████╔╝██║  ██║
 " ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 
+"useful website with color wheel and color theory stuff 
+"https://www.canva.com/colors/color-wheel/
 "######### colorscheme
 "removes the ~ at the end of buffers with the onedark colorscheme 
 let g:onedark_hide_endofbuffer = 1
@@ -362,6 +364,10 @@ let g:gruvbox_italic = 1            "gruvbox
 
 colorscheme gruvbox
 
+"look at :h pumblend
+"This enables transparency for the completion menu
+set pumblend=10
+
 "##########COLORIZER##########
 "colorizer for displaying color as a highlight 
 "example:  #0000ff
@@ -372,6 +378,25 @@ lua require 'colorizer'.setup()
 "Normal float was originialy linked to Pmenu
 hi FloatBorder guibg=#342829 guifg=#F34955
 hi NormalFloat guibg=#282828
+
+"look at :h pumblend 
+"this allows for the selection in the completion menu to not be transparent when "pumblend" is set
+hi PmenuSel blend=0
+
+"cmp
+"shows suggested completion as completely white text
+hi! CmpItemAbbr    guifg=NONE
+
+"changes source (such as [LSP] or [buf]) color
+hi! CmpItemMenu         guifg=#76695D   
+"hi! CmpItemMenu         guifg=#8FDD78   gui=italic
+
+"changes item kind color (such as text, variable, operator, snippet, etc.)
+"hi! CmpItemKind   guifg=#C678DD
+hi! CmpItemKind   guifg=#DCAEEA     gui=bold
+"hi! CmpItemKind guifg=#a9a1e1
+
+
 
 
 "changes comments to italic, but resets to normal when changing colorscheme
