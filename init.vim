@@ -298,7 +298,7 @@ Plug 'rakr/vim-one'                  "onedark with light theme
 
 
 """treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'branch': '0.5-compat', 'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 """fzf
 Plug 'junegunn/fzf', {'do': {-> fzf#install()} }
