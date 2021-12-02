@@ -46,13 +46,13 @@ set completeopt=menuone,noselect
 
 """auto commands
 "sets cursorline and cursor column only on the current window
-"augroup Cursor
-"    autocmd!
-"    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
-"    autocmd WinLeave * setlocal nocursorline
-"    autocmd WinLeave * setlocal nocursorcolumn
-"augroup END
+augroup Cursor
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+    autocmd WinLeave * setlocal nocursorline
+    autocmd WinLeave * setlocal nocursorcolumn
+augroup END
 
 augroup EnteringBuffers
     autocmd!
@@ -362,6 +362,7 @@ set pumblend=10
 "##########COLORIZER##########
 "colorizer for displaying color as a highlight 
 "example:  #0000ff
+"This may break when sourcing this file
 lua require 'colorizer'.setup()
 
 "######## highlights
@@ -374,6 +375,7 @@ hi NormalFloat guibg=#282828
 "this allows for the selection in the completion menu to not be transparent when "pumblend" is set
 hi PmenuSel blend=0
 
+
 "cmp
 "shows suggested completion as completely white text
 hi! CmpItemAbbr    guifg=NONE
@@ -384,9 +386,9 @@ hi! CmpItemMenu         guifg=#76695D
 
 "changes item kind color (such as text, variable, operator, snippet, etc.)
 "hi! CmpItemKind   guifg=#C678DD
-hi! CmpItemKind   guifg=#DCAEEA     gui=bold
+hi! CmpItemKindDefault   guifg=#DCAEEA     gui=bold
 "hi! CmpItemKind guifg=#a9a1e1
-
+"hi! LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
 
 
 
@@ -557,7 +559,7 @@ end
 -- icon
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = false,
+    underline = true,
     signs = true,
     virtual_text = {
       spacing = 4,
@@ -726,7 +728,7 @@ local colors = {
 require('lualine').setup{
 
 options = {
-    theme = 'gruvbox',
+    theme = 'auto',
     section_separators = {'', ''},
     component_separators = {'|', '|'},
     disabled_filetypes = {},
