@@ -273,6 +273,10 @@ endfunction
 """ plugins go here---------------
 call plug#begin('~/.vim/plugged')
 
+
+"for restoring nvim sessions in tmux with tmux resurrect
+Plug 'tpope/vim-obsession'
+
 "which key (never forget keybindings with this)
 Plug 'folke/which-key.nvim'
 
