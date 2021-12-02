@@ -231,26 +231,43 @@ function! ToggleCursorline()
     endif
 endfunction
 
-"toggles between a light and dark theme
+""toggles between a light and dark theme
+"will always toggle to onelight
 function! ToggleTheme()
-
-    if g:colors_name == "one" && &background == "light"
-        colorscheme onedark
-        set background=dark
-        echo "switched to onedark"
-    elseif g:colors_name == "onedark"
+    if &background == "dark"
         colorscheme one
         set background=light
         echo "switched to one-light"
-
-    elseif &background == "light"
-        set background=dark
-        echo "set to dark bg"
     else
-        set background=light
-        echo "set to light bg"
+        colorscheme gruvbox
+        set background=dark
+        echo "switched to gruvbox"
     endif
 endfunction
+
+""This old version did not always change to onelight
+"function! ToggleTheme()
+"
+"    if g:colors_name == "one" && &background == "light"
+"        colorscheme onedark
+"        set background=dark
+"        echo "switched to onedark"
+"    elseif g:colors_name == "onedark"
+"        colorscheme one
+"        set background=light
+"        echo "switched to one-light"
+"
+"    elseif &background == "light"
+"        set background=dark
+"        echo "set to dark bg"
+"    else
+"        set background=light
+"        echo "set to light bg"
+"    endif
+"endfunction
+
+
+
 
 """##########################
 """ plugins go here---------------
