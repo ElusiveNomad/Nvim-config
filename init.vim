@@ -170,7 +170,7 @@ function! RunCode()
     elseif fileExtension == "sh"
         term bash %
     else
-        echo fileExtension "is probably not executable"
+        echo fileExtension "is not supported in RunCode()"
     endif
 
 endfunction
