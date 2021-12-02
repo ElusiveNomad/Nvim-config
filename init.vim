@@ -289,8 +289,10 @@ Plug 'rafamadriz/friendly-snippets'
 "completion sources for cmp
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-buffer', {'for': 'text'}
 Plug 'hrsh7th/cmp-path'
+Plug 'f3fora/cmp-spell', {'for': 'text'}
+
 "formatting for cmp sources in completion menu
 Plug 'onsails/lspkind-nvim'
 
@@ -665,6 +667,7 @@ mapping = {
     { name = 'luasnip' },
     { name = 'buffer', keyword_length = 5},
     { name = 'path' },
+    { name = 'spell' }
   },
 
   --Uses lspkind
