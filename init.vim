@@ -169,6 +169,8 @@ function! RunCode()
         term python3 %
     elseif fileExtension == "sh"
         term bash %
+    elseif fileExtension == "lua"
+        term lua %
     else
         echo fileExtension "is not supported in RunCode()"
     endif
