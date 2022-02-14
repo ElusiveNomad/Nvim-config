@@ -409,7 +409,7 @@ hi! CmpItemMenu         guifg=#76695D
 
 "changes item kind color (such as text, variable, operator, snippet, etc.)
 "hi! CmpItemKind   guifg=#C678DD
-hi! CmpItemKindDefault   guifg=#DCAEEA     gui=bold
+hi! CmpItemKind   guifg=#DCAEEA     gui=bold
 "hi! CmpItemKind guifg=#a9a1e1
 "hi! LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
 
