@@ -31,6 +31,9 @@ set printfont=Hack\ Nerd\ Font\ Mono:h8 "font used in pdf
 "this gives live feedback while searching with /
 set incsearch
 
+"global statusline
+set laststatus=3
+
 "shows matching grouping symbols
 set showmatch
 "copies to system clipboard
@@ -49,9 +52,9 @@ set completeopt=menuone,noselect
 augroup Cursor
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+""    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
     autocmd WinLeave * setlocal nocursorline
-    autocmd WinLeave * setlocal nocursorcolumn
+""    autocmd WinLeave * setlocal nocursorcolumn
 augroup END
 
 augroup EnteringBuffers
@@ -91,8 +94,8 @@ inoremap jk <Esc>
 nnoremap <leader>o o<Esc>k
 
 "F9 Runs code (look at RunCode fn to see supported fileExtensions )
-"nnoremap <silent> <F9> :w<CR> :call RunCode()<CR>
-nnoremap <F9> :call RunCode()<CR>
+nnoremap <F9> :w<CR> :call RunCode()<CR>
+"nnoremap <F9> :call RunCode()<CR>
 
 "lazygit
 nnoremap <leader>g :FloatermNew lazygit <CR>
@@ -195,7 +198,7 @@ function! ToggleStatusBar()
     if &laststatus
         setlocal laststatus=0
     else
-        setlocal laststatus=2
+        setlocal laststatus=3
     endif
 endfunction
 
@@ -284,6 +287,11 @@ Plug 'folke/which-key.nvim'
 
 "Language Server Protocol or lsp for short
 Plug 'neovim/nvim-lspconfig'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+"debuging
+"Plug 'mfussenegger/nvim-dap'
+"Plug 'rcarriga/nvim-dap-ui'
 
 """ "autocomplete"
 "Plug 'hrsh7th/nvim-compe'
@@ -560,6 +568,37 @@ nnoremap <silent>gr :lua vim.lsp.buf.rename()<CR>
 
 "add servers by adding to "local servers = ..." list
 lua << EOF
+
+--███╗   ██╗██╗   ██╗██╗     ██╗         ██╗     ███████╗
+--████╗  ██║██║   ██║██║     ██║         ██║     ██╔════╝
+--██╔██╗ ██║██║   ██║██║     ██║         ██║     ███████╗
+--██║╚██╗██║██║   ██║██║     ██║         ██║     ╚════██║
+--██║ ╚████║╚██████╔╝███████╗███████╗    ███████╗███████║
+--╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝    ╚══════╝╚══════╝
+
+local null_ls = require("null-ls")
+
+-- register any number of sources simultaneously
+local sources = {
+        null_ls.builtins.diagnostics.shellcheck,
+--        null_ls.builtins.diagnostics.pylint, 
+}
+
+null_ls.setup{ 
+    sources = sources, 
+    diagnostics_format = "#{m} (#{s})",
+    update_on_insert = true,
+}
+
+
+--██╗     ███████╗██████╗ 
+--██║     ██╔════╝██╔══██╗
+--██║     ███████╗██████╔╝
+--██║     ╚════██║██╔═══╝ 
+--███████╗███████║██║     
+--╚══════╝╚══════╝╚═╝     
+
+
 local nvim_lsp = require('lspconfig')
 --Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -577,22 +616,33 @@ end
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
 
 for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
+  local hl = "DiagnosticsSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
 -- icon
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
+vim.diagnostic.config({
+    virtual_text = { 
+        prefix = '■',
+        },
+
     signs = true,
-    virtual_text = {
-      spacing = 4,
-      prefix = '■'
-    },
-    update_in_insert = true
-  }
-)
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
+})
+
+--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--  vim.lsp.diagnostic.on_publish_diagnostics, {
+--    underline = true,
+--    signs = true,
+--    virtual_text = {
+--      spacing = 4,
+--      prefix = '■'
+--    },
+--    update_in_insert = true
+--  }
+--)
 
 
 
@@ -783,7 +833,7 @@ sections = {
 
     lualine_c = {
         {'diagnostics',
-        sources = {'nvim_lsp'},
+        sources = {'nvim_diagnostic'},
         color_error = colors.red,
         color_warn = colors.yellow,
         color_info = colors.blue1,
@@ -794,28 +844,29 @@ sections = {
 
     lualine_x = { 'encoding', 'filetype' },
 
-    lualine_y = {
-    {'os.date("%a %m/%d")',
-        color = {
-            bg = colors.yellow,
-            --fg ='#484848'
-            fg = '#000000'
-            },
-        icon = ''
-    
-    },
-
-    {'os.date("%I:%M %p")',
-        color = {
-            bg = colors.yellow,
-            fg = '#000000'
-            },
-        icon = '| '
-            } --end of second os.date
-
-            }, --end of lualine_y
-            
-    lualine_z = {{'progress'} , {'location', icon = ''}},
+--    lualine_y = {
+--    {'os.date("%a %m/%d")',
+--        color = {
+--            bg = colors.yellow,
+--            --fg ='#484848'
+--            fg = '#000000'
+--            },
+--        icon = ''
+--    
+--    },
+--
+--    {'os.date("%I:%M %p")',
+--        color = {
+--            bg = colors.yellow,
+--            fg = '#000000'
+--            },
+--        icon = '| '
+--            } --end of second os.date
+--
+--            }, --end of lualine_y
+--            
+--    lualine_z = {{'progress'} , {'location', icon = ''}},
+    lualine_z = {{'location', icon = ''}},
     
 },
 extensions = { 'fzf'}
